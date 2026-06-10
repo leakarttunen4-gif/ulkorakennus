@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Karelia Ulkorakennus Oy">
+  <meta name="robots" content="index, follow">
+  <title>Karelia Ulkorakennus Oy – Terassit, pergolat ja piharakennukset Joensuussa</title>
+  <meta name="description" content="Karelia Ulkorakennus Oy rakentaa laadukkaat terassit, pergolat, piharakennukset ja aidat Joensuussa ja Pohjois-Karjalassa. Pyydä maksuton tarjous!">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preload" as="image" href="images/tausta_kuva.webp">
+  <style>
+    /* ---- HERO ---- */
+    .hero { 
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      background: 
+      linear-gradient(135deg, rgba(20, 35, 20, 0.65) 0%, rgba(30, 50, 30, 0.55) 100%),
+      url('images/tausta_kuva.webp') center/cover no-repeat;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Ccircle cx='50' cy='50' r='1.5' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E") repeat;
+    }
+
+    .hero-deco {
+      position: absolute;
+      right: -80px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 560px;
+      height: 560px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,137,58,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-deco2 {
+      position: absolute;
+      left: -120px;
+      bottom: -80px;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(45,74,45,0.5) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 640px;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(200,137,58,0.18);
+      border: 1px solid rgba(200,137,58,0.35);
+      color: #e4a85a;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 2px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      color: var(--color-white);
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      margin-bottom: 20px;
+      line-height: 1.1;
+    }
+
+    .hero p {
+      color: rgba(255,255,255,0.72);
+      font-size: 1.1rem;
+      max-width: 480px;
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.4);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .hero-scroll::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 32px;
+      background: rgba(255,255,255,0.25);
+      margin: 8px auto 0;
+    }
+
+    /* ---- USP STRIP ---- */
+    .usp-strip {
+      background: var(--color-white);
+      padding: 28px 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .usp-items {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+
+    .usp-item {
+      flex: 1;
+      min-width: 200px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 28px;
+      border-right: 1px solid var(--color-border);
+    }
+
+    .usp-item:last-child { border-right: none; }
+
+    .usp-icon { font-size: 1.4rem; flex-shrink: 0; }
+
+    .usp-text strong { display: block; font-size: 0.88rem; font-weight: 700; color: var(--color-text); }
+    .usp-text span { font-size: 0.78rem; color: var(--color-muted); }
+
+    /* ---- PALVELUT ETUSIVULLA ---- */
+    .service-card {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .service-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+
+    .service-icon-wrap {
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+    }
+    
+    .service-card figure {
+  	  margin: 0;
+  	  height: 200px;        /* tai haluamasi korkeus */
+      overflow: hidden;
+    }
+
+	.service-card figure img {
+  	  width: 100%;
+  	  height: 100%;
+  	  object-fit: cover;    /* täyttää tilan leikkaamalla, ei venytyksellä */
+	}
+
+    .service-card-body { padding: 20px 24px 24px; flex: 1; display: flex; flex-direction: column; }
+    .service-card-body h3 { margin-bottom: 8px; }
+    .service-card-body p { font-size: 0.88rem; color: var(--color-muted); flex: 1; margin-bottom: 16px; }
+
+    /* ---- REFERENSSI HIGHLIGHT ---- */
+    .ref-highlight {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .ref-highlight figure {
+	  height:100%;
+	}
+    
+    .ref-img {
+      background: linear-gradient(135deg, #3a5c3a, #2D4A2D);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      min-height: 320px;
+      width:100%;
+	  height:100%;
+	  object-fit:cover;
+    }
+
+    .ref-body {
+      background: var(--color-white);
+      padding: 48px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .ref-body h4 { margin-bottom: 12px; }
+    .ref-body h2 { margin-bottom: 16px; font-size: 1.6rem; }
+    .ref-body p { color: var(--color-muted); font-size: 0.95rem; margin-bottom: 28px; }
+
+    /* ---- CTA BANNER ---- */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--color-accent) 0%, #a86e28 100%);
+      padding: 64px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='30' cy='30' r='1' fill='rgba(255,255,255,0.07)'/%3E%3C/svg%3E") repeat;
+    }
+
+    .cta-banner .container { position: relative; z-index: 2; }
+    .cta-banner h2 { color: var(--color-white); margin-bottom: 12px; }
+    .cta-banner p { color: rgba(255,255,255,0.82); font-size: 1.05rem; margin-bottom: 32px; }
+    .cta-banner .btn-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    @media (max-width: 700px) {
+      .hero { min-height: 100svh; }
+      .ref-highlight { grid-template-columns: 1fr; }
+      .ref-img { min-height: 220px; }
+      .ref-body { padding: 32px 24px; }
+      .usp-item { border-right: none; border-bottom: 1px solid var(--color-border); }
+      .usp-items { flex-direction: column; align-items: stretch; }
+    }
+    
+    
+  </style>
+</head>
+<body>
+
+<!-- NAVIGAATIO -->
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <span>Karelia Ulkorakennus Oy</span>
+      Joensuu · Pohjois-Karjala
+    </a> 
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Valikko">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Etusivu</a></li>
+      <!--<li><a href="palvelut.html">Palvelut</a></li>--> 
+      <li class="has-dropdown">
+        <a href="palvelut.html">Palvelut<span class="dropdown-arrow">▼</span></a>
+        <button class="dropdown-toggle-btn" onclick="toggleDropdown(this)" aria-label="Avaa alavalikko">
+          <span class="dropdown-arrow">▼</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="terassit.html">Terassit</a></li>
+          <li><a href="pergolat.html">Pergolat</a></li>
+          <li><a href="piharakennukset.html">Piharakennukset</a></li>
+          <li><a href="aidat.html">Aidat</a></li>
+          <li><a href="piharemontti.html">Piharemontti</a></li>
+        </ul>
+      </li>
+	  <li><a href="referenssit.html">Referenssit</a></li>
+      <li><a href="tietoa-meista.html">Tietoa meistä</a></li>
+      <li><a href="palautteet.html">Palautteet</a></li>
+      <li><a href="yhteystiedot.html">Yhteystiedot</a></li> 
+      <li><a href="ajanvaraus.html" class="nav-cta">Varaa aika</a></li>
+      <!-- <li><a href="pyydä-tarjous.html" class="nav-cta">Pyydä tarjous</a></li> -->
+      <li><a href="materiaalit/materiaalit.html" class="nav-cta">ResQ</a></li> 
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-deco"></div>
+  <div class="hero-deco2"></div>
+  <div class="container">
+    <div class="hero-content">
+      <!-- <div class="hero-tag fade-up">🌲 Joensuu &amp; Pohjois-Karjala</div> -->
+      <h1 class="fade-up-delay-1">Terassit, pergolat ja piharakennukset Joensuussa</h1>
+      <p>Piha, jossa viihdyt – vuoden jokaisena päivänä.</p>
+      <!-- <p class="fade-up-delay-2">Toteutamme terassit, aidat ja piharakennukset ammattitaidolla.</p> -->
+      <div class="hero-btns fade-up-delay-3">
+        <a href="ajanvaraus.html" class="btn btn-primary btn-lg">Varaa kartoituskäynti</a>
+        <a href="referenssit.html" class="btn btn-outline-white btn-lg">Katso referenssit</a>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="hero-scroll">Vieritä alas</div> -->
+</section>
+
+<!-- USP-RIVI -->
+<!--
+<div class="usp-strip">
+  <div class="container">
+    <div class="usp-items">
+      <div class="usp-item">
+        <!-- <span class="usp-icon">🏆</span> -->
+        <!--<div class="usp-text">
+          <strong>Yli 10 vuoden kokemus</strong>
+          <span>Satoja toteutettuja projekteja</span>
+        </div> 
+      </div>
+      <div class="usp-item">
+        <!-- <span class="usp-icon">📍</span> -->
+        <!-- <div class="usp-text">
+          <strong>Paikallinen tekijä</strong>
+          <span>Joensuu ja koko Pohjois-Karjala</span>
+        </div>
+      </div>
+      <div class="usp-item">
+        <!-- <span class="usp-icon">🛡️</span> -->
+        <!--<div class="usp-text">
+          <strong>2 vuoden takuu</strong>
+          <span>Kaikille töillemme</span>
+        </div>
+      </div>
+      <div class="usp-item">
+        <!-- <span class="usp-icon">✅</span>  -->
+        <!-- <div class="usp-text">
+          <strong>Avaimet käteen</strong>
+          <span>Suunnittelusta viimeistelyyn</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+-->
+
+<!-- PALVELUT -->
+<section class="section"> 
+  <div class="container">
+    <div class="section-header">
+      <!-- <h4>Mitä teemme</h4> -->
+      <h2>Palvelumme</h2>
+      <p>Toteutamme kaikki ulkorakentamisen projektit pienestä piharemontista suurempaan kokonaisuuteen.</p>
+    </div>
+    <div class="grid-3">
+      <div class="service-card">
+        <figure>
+      		<img src="images/etusivun_terassi.webp" alt="Karelia Ulkorakennus Oy:n rakentama puinen terassi omakotitalon pihalla" loading="lazy"> 
+       	</figure>
+        <!-- <div class="service-icon-wrap" style="background:#e8f0e8;">🪵</div> -->
+        <div class="service-card-body">
+          <h3>Terassit</h3>
+          <p>Painekyllästetty puu, lämpöpuu tai komposiitti — terassi juuri sinun tarpeidesi ja pihasi mukaan.</p>
+          <a href="terassit.html" class="btn btn-secondary btn-sm">Lue lisää</a>
+        </div>
+      </div>
+      <div class="service-card">
+        <figure>
+      		<img src="images/etusivun_pergola.webp" alt="Takapihan pergola" loading="lazy"> 
+    	</figure>
+       <!-- <div class="service-icon-wrap" style="background:#f0ece0;">🏛️</div> -->
+        <div class="service-card-body">
+          <h3>Pergolat</h3>
+          <p>Tyylikäs pergola luo varjoa ja rakennetta pihallesi. Toteutamme niin perinteiset kuin modernit mallit.</p>
+          <a href="pergolat.html" class="btn btn-secondary btn-sm">Lue lisää</a>
+        </div>
+      </div>
+      <div class="service-card">
+        <figure>
+      		<img src="images/etusivun_leikkimokki.webp" alt="Leikkimökki lapsille" loading="lazy"> 
+    	</figure>
+        <!-- <div class="service-icon-wrap" style="background:#f5eee6;">🏠</div> -->
+        <div class="service-card-body">
+          <h3>Piharakennukset</h3>
+          <p>Varastot, leikkimökit, autotallit ja muut piharakennukset — rakennamme ne perustuksesta kattoon.</p>
+          <a href="piharakennukset.html" class="btn btn-secondary btn-sm">Lue lisää</a>
+        </div>
+      </div>
+      <div class="service-card">
+        <figure>
+      		<img src="images/etusivun_aita.webp" alt="Laudoista tehty aitalementti" loading="lazy"> 
+    	</figure>
+       <!-- <div class="service-icon-wrap" style="background:#ece8f0;">🚧</div> -->
+        <div class="service-card-body">
+          <h3>Aidat</h3>
+          <p>Puuaidat, rimaidat ja kasvialueiden rajaukset. Kestävä toteutus pohjoisen sääolosuhteisiin.</p>
+          <a href="aidat.html" class="btn btn-secondary btn-sm">Lue lisää</a>
+        </div>
+      </div>
+      <div class="service-card">
+        <figure>
+      		<img src="images/etusivun_kaivuri.webp" alt="Pihan tasoitusta kaivurilla" loading="lazy"> 
+    	</figure>
+        <!-- <div class="service-icon-wrap" style="background:#e8ece8;">🌿</div> -->
+        <div class="service-card-body">
+          <h3>Piharemontti</h3>
+          <p>Koko pihan uudistus tai maisemointi — suunnittelemme ja toteutamme kokonaisuuden.</p>
+          <a href="piharemontti.html" class="btn btn-secondary btn-sm">Lue lisää</a>
+        </div>
+      </div>
+      <div class="service-card" style="background: linear-gradient(135deg, #2D4A2D, #1e3520); color: white;">
+        <div class="service-icon-wrap" style="background:transparent; font-size: 2.5rem;">❓</div>
+        <div class="service-card-body">
+          <h3 style="color:white;">Ei löydy listalta?</h3>
+          <p style="color:rgba(255,255,255,0.75);">Kysy rohkeasti — toteutamme myös muut ulkorakentamisen projektit. Suunnitellaan yhdessä mitä pihasi kaipaa.</p>
+          <a href="pyydä-tarjous.html" class="btn btn-white btn-sm">Ota yhteyttä</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REFERENSSI HIGHLIGHT -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <!-- <h4>Viimeisimmät työt</h4> -->
+      <h2>Katso mitä olemme tehneet</h2>
+    </div>
+    <div class="ref-highlight">
+     <figure>
+      		<img src="images/etusivun_omakotitalo.webp" alt="Omakotitalon pihaan tehty terassi ja pergola"> 
+     </figure>
+     <!-- <div class="ref-img">🌲</div> -->
+      <div class="ref-body">
+        <h4>Referenssi · Joensuu 2025</h4>
+        <h2>Lämpöpuuterassi + mäntypergola</h2>
+        <p>Rakensimme omakotitalon pihaan laajan lämpöpuuterassin ja siihen liittyvän mäntypergolan. Projekti toteutettiin kolmessa viikossa alkusuunnittelusta viimeistelyyn.</p>
+        <a href="referenssit.html" class="btn btn-primary">Katso kaikki referenssit</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TUNNUSLUVUT -->
+<section class="section section-dark">
+  <div class="container">
+    <div class="stats-row">
+      <div class="stat-item">
+        <span class="stat-number">200+</span>
+        <span class="stat-label">Toteutettua projektia</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">10+</span>
+        <span class="stat-label">Vuotta kokemusta</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">98%</span>
+        <span class="stat-label">Tyytyväisiä asiakkaita</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">2 v</span>
+        <span class="stat-label">Takuu kaikille töille</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ASIAKASPALAUTTEET -->
+<section class="section">
+  <div class="container">
+    <div class="section-header center">
+      <!-- <h4>Mitä asiakkaamme sanovat</h4> -->
+      <h2>Asiakaspalautteet</h2>
+    </div>
+    <div class="grid-3">
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"Terassi nousi aikataulussa ja laatu ylitti odotukset. Yhteistyö sujui alusta loppuun hyvin."</p>
+        <div class="testimonial-author"> 
+          <!-- <div class="testimonial-avatar">👤</div> -->
+          <div>
+            <span class="testimonial-name">Matti Virtanen</span>
+            <span class="testimonial-location">Joensuu, omakotitalo</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"Mökille rakennettu aitta on juuri sellainen kuin halusimme. Hinta-laatu-suhde erinomainen."</p>
+        <div class="testimonial-author">
+          <!-- <div class="testimonial-avatar">👤</div> -->
+          <div>
+            <span class="testimonial-name">Leena Korhonen</span>
+            <span class="testimonial-location">Liperi, kesämökki</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"Pergola toi taloyhtiömme pihaan aivan uuden tunnelman. Asukkaat ovat erittäin tyytyväisiä."</p>
+        <div class="testimonial-author">
+          <!-- <div class="testimonial-avatar">👤</div> -->
+          <div>
+            <span class="testimonial-name">Taloyhtiö Oy</span>
+            <span class="testimonial-location">Joensuu, Noljakka</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center" style="margin-top:36px;">
+      <a href="palautteet.html" class="btn btn-secondary">Lue kaikki palautteet</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <div class="container">
+    <h2>Näin aloitetaan</h2>
+    <p>Maksuton kartoituskäynti pihallasi — kerrotaan mitä on mahdollista tehdä ja saat tarjouksen ilman sitoumuksia.</p>
+    <div class="btn-row">
+      <a href="ajanvaraus.html" class="btn btn-primary btn-lg">Varaa kartoituskäynti</a>
+      <!--<a href="pyydä-tarjous.html" class="btn btn-white btn-lg">Pyydä maksuton tarjous</a>-->
+      <a href="yhteystiedot.html" class="btn btn-outline-white btn-lg">Ota yhteyttä</a>
+    </div>
+  </div>
+</div>
+
+<!--#include file="footer.shtml" -->
+  
+<script>
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  } 
+  function toggleDropdown(btn) {
+    btn.closest('li').classList.toggle('open');
+  }
+ 
+</script>
+</body>
+</html>
