@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Karelia Ulkorakennus Oy">
+  <meta name="robots" content="index, follow">
+  <title>Palautteet &amp; FAQ – Karelia Ulkorakennus Oy</title>
+  <meta name="description" content="Lue asiakkaiden kokemuksia Karelia Ulkorakennus Oy:stä ja löydä vastaukset usein kysyttyihin kysymyksiin.">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .testimonial-lg {
+      grid-column: span 2;
+      background: var(--color-primary);
+      border-radius: var(--radius-lg);
+      padding: 40px 44px;
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      box-shadow: var(--shadow-lg);
+      border-left: none;
+    }
+
+    .testimonial-lg .quote-icon {
+      font-family: var(--font-heading);
+      font-size: 5rem;
+      color: var(--color-accent);
+      line-height: 1;
+      flex-shrink: 0;
+      align-self: flex-start;
+      margin-top: -8px;
+    }
+
+    .testimonial-lg .testimonial-text {
+      color: rgba(255,255,255,0.92);
+      font-size: 1.2rem;
+    }
+
+    .testimonial-lg .testimonial-name { color: var(--color-white); }
+    .testimonial-lg .testimonial-location { color: rgba(255,255,255,0.6); }
+
+    .rating-summary {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+      margin-bottom: 48px;
+      display: flex;
+      gap: 0;
+      align-items: stretch;
+    }
+
+    .rating-main {
+      flex: 1;
+      border-right: 1px solid var(--color-border);
+      padding: 0 40px;
+    }
+
+    .rating-number {
+      font-family: var(--font-heading);
+      font-size: 4rem;
+      color: var(--color-primary);
+      line-height: 1;
+      display: block;
+    }
+
+    .rating-stars { font-size: 1.4rem; letter-spacing: 4px; color: var(--color-accent); margin: 8px 0; }
+    .rating-count { font-size: 0.82rem; color: var(--color-muted); }
+
+    .rating-bars {
+      flex: 2;
+      padding: 0 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .rating-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: var(--color-muted);
+    }
+
+    .rating-bar-row .star-label { min-width: 40px; text-align: right; }
+    .bar-track { flex: 1; height: 8px; background: var(--color-bg-alt); border-radius: 4px; overflow: hidden; }
+    .bar-fill { height: 100%; background: var(--color-accent); border-radius: 4px; transition: width 1s ease; }
+    .bar-count { min-width: 24px; }
+
+    .faq-container { max-width: 720px; margin: 0 auto; }
+
+    .faq-category {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin: 36px 0 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    @media (max-width: 700px) {
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .testimonial-lg { grid-column: span 1; flex-direction: column; gap: 16px; padding: 28px 24px; }
+      .testimonial-lg .quote-icon { font-size: 3rem; }
+      .rating-summary { flex-direction: column; gap: 24px; }
+      .rating-main { border-right: none; border-bottom: 1px solid var(--color-border); padding-bottom: 24px; }
+      .rating-bars { padding: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <span>Karelia Ulkorakennus Oy</span>
+      Joensuu · Pohjois-Karjala
+    </a>
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Valikko">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Etusivu</a></li> 
+      <li class="has-dropdown">
+        <a href="palvelut.html">Palvelut<span class="dropdown-arrow">▼</span></a>
+        <button class="dropdown-toggle-btn" onclick="toggleDropdown(this)" aria-label="Avaa alavalikko">
+          <span class="dropdown-arrow">▼</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="terassit.html">Terassit</a></li>
+          <li><a href="pergolat.html">Pergolat</a></li>
+          <li><a href="piharakennukset.html">Piharakennukset</a></li>
+          <li><a href="aidat.html">Aidat</a></li>
+          <li><a href="piharemontti.html">Piharemontti</a></li>
+        </ul>
+       </li>
+      <li><a href="referenssit.html">Referenssit</a></li>
+      <li><a href="tietoa-meista.html">Tietoa meistä</a></li>
+      <li><a href="palautteet.html" class="active">Palautteet</a></li>
+      <li><a href="yhteystiedot.html">Yhteystiedot</a></li>
+      <li><a href="ajanvaraus.html" class="nav-cta">Varaa aika</a></li>
+      <!-- <li><a href="pyydä-tarjous.html" class="nav-cta">Pyydä tarjous</a></li>-->
+      <li><a href="materiaalit/materiaalit.html" class="nav-cta">ResQ</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- <nav class="breadcrumb">
+  <div class="container">
+    <ol>
+      <li><a href="index.html">Etusivu</a></li>
+      <li>Palautteet &amp; FAQ</li>
+    </ol>
+  </div>
+</nav> -->
+
+<div class="page-hero">
+  <div class="container">
+    <!-- <h4>Asiakkaidemme kokemuksia</h4> -->
+    <h1>Palautteet &amp; FAQ</h1>
+    <p>Lue mitä asiakkaamme kertovat kokemuksistaan — ja löydä vastaukset yleisimpiin kysymyksiin.</p>
+  </div>
+</div>
+
+<main>
+  <!-- PALAUTTEET -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <!-- <h4>Asiakasarviot</h4> -->
+        <h2>Mitä asiakkaamme sanovat</h2>
+      </div>
+
+      <!-- Yhteenveto -->
+      <div class="rating-summary">
+        <div class="rating-main">
+          <span class="rating-number">4,9</span>
+          <div class="rating-stars">★★★★★</div>
+          <p class="rating-count">Perustuu 48 arvioon</p>
+        </div>
+        <div class="rating-bars">
+          <div class="rating-bar-row">
+            <span class="star-label">5 ★</span>
+            <div class="bar-track"><div class="bar-fill" style="width:91%;"></div></div>
+            <span class="bar-count">44</span>
+          </div>
+          <div class="rating-bar-row">
+            <span class="star-label">4 ★</span>
+            <div class="bar-track"><div class="bar-fill" style="width:6%;"></div></div>
+            <span class="bar-count">3</span>
+          </div>
+          <div class="rating-bar-row">
+            <span class="star-label">3 ★</span>
+            <div class="bar-track"><div class="bar-fill" style="width:2%;"></div></div>
+            <span class="bar-count">1</span>
+          </div>
+          <div class="rating-bar-row">
+            <span class="star-label">2 ★</span>
+            <div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div>
+            <span class="bar-count">0</span>
+          </div>
+          <div class="rating-bar-row">
+            <span class="star-label">1 ★</span>
+            <div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div>
+            <span class="bar-count">0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Arviot -->
+      <div class="testimonials-grid">
+        <div class="testimonial-lg">
+          <span class="quote-icon">"</span>
+          <div>
+            <div class="stars" style="margin-bottom:12px;">★★★★★</div>
+            <p class="testimonial-text">Terassi nousi täsmälleen aikataulussa ja laatu ylitti kaikki odotukset. Pekka kävi pihalla etukäteen, selitti mitä tehdään ja miten — ja piti kaiken sovitun. Voin lämpimästi suositella kaikille!</p>
+            <div class="testimonial-author" style="margin-top:20px;">
+              <div class="testimonial-avatar">👤</div>
+              <div>
+                <span class="testimonial-name">Matti Virtanen</span>
+                <span class="testimonial-location">Joensuu, Rantakylä · Terassi 2024</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">"Mökille rakennettu aitta on juuri sellainen kuin halusimme. Hinta-laatu-suhde erinomainen, ja työ on siistiä. Suosittelen!"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">👤</div>
+            <div>
+              <span class="testimonial-name">Leena Korhonen</span>
+              <span class="testimonial-location">Liperi · Piharakennus 2024</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">"Pergola toi taloyhtiömme pihaan uuden tunnelman. Asukkaat kehuvat ja hallitus on erittäin tyytyväinen. Yhteistyö sujui helposti."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">👤</div>
+            <div>
+              <span class="testimonial-name">Taloyhtiö Norola</span>
+              <span class="testimonial-location">Joensuu · Pergola 2023</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">"Tilasimme komposiittiterassin mökillemme Pyhäselän rannalle. Tulos on upea ja kestää varmasti vuosikymmeniä. Ehdottomasti paras hankinta mökille!"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">👤</div>
+            <div>
+              <span class="testimonial-name">Juha ja Riitta Leinonen</span>
+              <span class="testimonial-location">Pyhäselkä · Terassi 2023</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">"Pihan kokonaisuudistus meni täydellisesti. Vanhan terassin purku, uusi terassi, aidat ja kulkupolku — kaikki yhden urakoitsijan kautta ilman stressiä."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">👤</div>
+            <div>
+              <span class="testimonial-name">Sari Hämäläinen</span>
+              <span class="testimonial-location">Kontiolahti · Piharemontti 2023</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial">
+          <div class="stars">★★★★☆</div>
+          <p class="testimonial-text">"Aidat tehtiin huolella ja lopputulos on hienon näköinen. Pieni aikatauluviive, mutta siitä kommunikoitiin etukäteen — se on tärkeintä."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">👤</div>
+            <div>
+              <span class="testimonial-name">Antti Mäkinen</span>
+              <span class="testimonial-location">Outokumpu · Aita 2022</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section-alt" id="faq">
+    <div class="container">
+      <div class="section-header center">
+        <h4>Usein kysyttyä</h4>
+        <h2>FAQ — Vastaukset yleisimpiin kysymyksiin</h2>
+      </div>
+
+      <div class="faq-container">
+
+        <div class="faq-category">Aloittaminen ja tarjous</div>
+
+        <div class="faq-item open">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Miten aloitan yhteistyön teidän kanssanne?
+            <span class="icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Helpoin tapa on täyttää tarjouslomake tai soittaa meille. Sovimme maksuttoman kartoituskäynnin, jossa käymme pihallasi katsomassa tilanteen. Kartoituksen jälkeen toimitamme kirjallisen tarjouksen. Koko prosessi on sitoumusvapainen.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Onko kartoituskäynti ja tarjous maksullinen?
+            <span class="icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Ei. Kartoituskäynti ja tarjous ovat täysin maksuttomia ja sitoumuksettomia. Et sitoudu mihinkään pelkällä yhteydenotolla tai kartoituskäynnillä.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Kuinka nopeasti saatte aloitettua projektin?
+            <span class="icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Sesonkiaikana (touko–elokuu) jonotusaika on tyypillisesti 2–5 viikkoa. Talvella ja syksyllä töihin päästään usein nopeammin. Ilmoitamme aina etukäteen arvioidun aloitusajankohdan.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-category">Materiaalit</div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Mitä eroa on lämpöpuulla ja painekyllästetyllä puulla?
+            <span class="icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Painekyllästetty puu on edullisempi perusvaihtoehto — se kestää hyvin kosteutta, mutta vaatii käsittelyn noin 3–5 vuoden välein. Lämpöpuu on termaalisesti käsiteltyä, joka tekee siitä kosteudenkin kestävämpää ilman kemikaaleja. Se patinoi luontevasti harmaaksi ajan myötä ja vaatii vähemmän huoltoa. Komposiitti on kestävin vaihtoehto, ei vaadi lainkaan pintakäsittelyä.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Mikä materiaali sopii parhaiten Pohjois-Karjalan ilmastoon?
+            <span class="icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Kaikki tarjoamamme materiaalit soveltuvat pohjoisen olosuhteisiin, kun rakenteet toteutetaan oikein. Lämpöpuu ja komposiitti vaativat vähemmän ylläpitoa kylmässä ilmastossa. Suosittelemme sopivaa materiaalia aina projektin ja kohteen perusteella.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-category">Hinta ja aikataulu</div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Paljonko terassi maksaa?
+            <span class="icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Hinta riippuu koosta, materiaalivalinnasta, perustusratkaisusta ja lisäelementeistä (kaiteet, portaat). Tyypillinen 20–30 m² painekyllästetty terassi on alkaen noin 4 000–7 000 €. Lämpöpuu ja komposiitti ovat hieman kalliimpia. Tarkin hinta selviää aina kartoituskäynnin jälkeen — tarjoamme aina kiinteitä hintoja, ei tuntilaskutusta.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Kauanko projekti kestää?
+            <span class="icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Tyypillinen terassi valmistuu 3–7 arkipäivässä työn aloituksesta. Suuremmat projektit kuten pihakokonaisuudet voivat kestää 2–4 viikkoa. Aikataulu käydään aina läpi tarjouksen yhteydessä ja kirjataan sopimukseen.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Voiko hinta muuttua projektin aikana?
+            <span class="icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Tarjouksessa sovittu kiinteä hinta ei muutu, ellei asiakas pyydä töiden laajentamista tai muutoksia projektin aikana. Kaikki muutokset hyväksytetään aina asiakkaalla etukäteen kirjallisesti.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-category">Takuu ja jälkihoito</div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Millainen takuu töillänne on?
+            <span class="icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Kaikille rakennustöillemme myönnetään 2 vuoden takuu rakennusvirheitä vastaan. Jos rakenteessa ilmenee virhe takuuaikana, korjaamme sen veloituksetta.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Miten terassia tai puurakenteita huolletaan?
+            <span class="icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Painekyllästetty puu suositellaan käsiteltäväksi öljyllä tai puunsuoja-aineella noin 3–5 vuoden välein. Lämpöpuulle riittää harvempi käsittely. Komposiittiterassi ei vaadi pintakäsittelyä — pelkkä puhdistus riittää. Annamme aina kirjalliset hoito-ohjeet projektin valmistuttua.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-banner" style="background: linear-gradient(135deg, var(--color-accent) 0%, #a86e28 100%); padding:64px 0; text-align:center; position:relative; overflow:hidden;">
+    <div class="container" style="position:relative; z-index:2;">
+      <h2 style="color:white; margin-bottom:12px;">Heräsikö kysymyksiä?</h2>
+      <p style="color:rgba(255,255,255,0.82); margin-bottom:32px;">Soita, laita sähköpostia tai täytä yhteydenottolomake — vastataan nopeasti.</p>
+      <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+        <a href="pyydä-tarjous.html" class="btn btn-white btn-lg">Pyydä tarjous</a>
+        <a href="yhteystiedot.html" class="btn btn-outline-white btn-lg">Ota yhteyttä</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!--#include file="footer.shtml"-->
+  
+<script>
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  function toggleDropdown(btn) {
+    btn.closest('li').classList.toggle('open');
+  }
+
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+</script>
+</body>
+</html>

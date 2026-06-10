@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tietosuojaseloste – Karelia Ulkorakennus Oy</title>
+  <meta name="robots" content="noindex">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .privacy-content {
+      max-width: 760px;
+      margin: 0 auto;
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      padding: 56px 64px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .privacy-content h2 {
+      font-size: 1.3rem;
+      margin-top: 40px;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .privacy-content h2:first-of-type { margin-top: 0; }
+
+    .privacy-content p { color: var(--color-muted); font-size: 0.92rem; line-height: 1.75; margin-bottom: 14px; }
+    .privacy-content ul { margin: 12px 0 16px 20px; }
+    .privacy-content ul li { color: var(--color-muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 6px; list-style: disc; }
+
+    .privacy-meta {
+      background: var(--color-bg-alt);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      font-size: 0.8rem;
+      color: var(--color-muted);
+      margin-bottom: 36px;
+    }
+
+    @media (max-width: 700px) {
+      .privacy-content { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <span>Karelia Ulkorakennus Oy</span>
+      Joensuu · Pohjois-Karjala
+    </a>
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Valikko">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Etusivu</a></li>
+      <li class="has-dropdown">
+        <a href="palvelut.html">Palvelut<span class="dropdown-arrow">▼</span></a>
+        <button class="dropdown-toggle-btn" onclick="toggleDropdown(this)" aria-label="Avaa alavalikko">
+          <span class="dropdown-arrow">▼</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="terassit.html">Terassit</a></li>
+          <li><a href="pergolat.html">Pergolat</a></li>
+          <li><a href="piharakennukset.html">Piharakennukset</a></li>
+          <li><a href="aidat.html">Aidat</a></li>
+          <li><a href="piharemontti.html">Piharemontti</a></li>
+        </ul>
+      </li>
+      <li><a href="referenssit.html">Referenssit</a></li>
+      <li><a href="tietoa-meista.html">Tietoa meistä</a></li>
+      <li><a href="palautteet.html">Palautteet</a></li>
+      <li><a href="yhteystiedot.html">Yhteystiedot</a></li>
+      <li><a href="ajanvaraus.html" class="nav-cta active">Varaa aika</a></li>
+      <li><a href="pyydä-tarjous.html" class="nav-cta active">Pyydä tarjous</a></li>
+      
+    </ul>
+  </div>
+</nav>
+
+  
+  
+<!-- <nav class="breadcrumb">
+  <div class="container">
+    <ol>
+      <li><a href="index.html">Etusivu</a></li>
+      <li>Tietosuojaseloste</li>
+    </ol>
+  </div>
+</nav> -->
+
+<section class="section">
+  <div class="container">
+    <div class="privacy-content">
+      <h1 style="font-size:1.8rem; margin-bottom:8px;">Tietosuojaseloste</h1>
+      <div class="privacy-meta">
+        Päivitetty: helmikuu 2026 | EU:n yleinen tietosuoja-asetus (GDPR) 2016/679
+      </div>
+
+      <h2>1. Rekisterinpitäjä</h2>
+      <p>
+        Karelia Ulkorakennus Oy<br>
+        Y-tunnus: 1234567-8<br>
+        Joensuu, Pohjois-Karjala<br>
+        Sähköposti: info@kareliarakennusoy.fi<br>
+        Puhelin: +358 40 123 4567
+      </p>
+
+      <h2>2. Yhteyshenkilö tietosuoja-asioissa</h2>
+      <p>Tietosuoja-asioissa voit ottaa yhteyttä rekisterinpitäjään yllä mainittuihin yhteystietoihin.</p>
+
+      <h2>3. Rekisterin nimi</h2>
+      <p>Karelia Ulkorakennus Oy:n asiakastietorekisteri ja ajanvaraus- ja tarjouspyyntörekisteri.</p>
+
+      <h2>4. Henkilötietojen käsittelyn tarkoitus ja oikeusperuste</h2>
+      <p>Henkilötietoja käsitellään seuraaviin tarkoituksiin:</p>
+      <ul>
+        <li>Tarjouspyyntöihin vastaaminen ja tarjousten toimittaminen</li>
+        <li>Ajanvarausten toteuttaminen</li>
+        <li>Asiakassopimusten hallinta ja laskutus</li>
+        <li>Yhteydenpidon hoitaminen asiakkaan kanssa</li>
+        <li>Lakisääteisten velvollisuuksien täyttäminen (kirjanpito, takuuasiat)</li>
+      </ul>
+      <p>Käsittelyn oikeusperusteena on sopimuksen täytäntöönpano, oikeutettu etu sekä lakisääteiset velvoitteet.</p>
+
+      <h2>5. Rekisterin tietosisältö</h2>
+      <p>Rekisteri voi sisältää seuraavia henkilötietoja:</p>
+      <ul>
+        <li>Nimi ja yhteystiedot (puhelinnumero, sähköpostiosoite, osoite)</li>
+        <li>Projektikohtaiset tiedot (kohteen osoite, työn laajuus, aikataulu)</li>
+        <li>Viestintähistoria (sähköpostit, puhelut, lomakkeet)</li>
+        <li>Sopimusasiakirjat ja laskutustiedot</li>
+      </ul>
+
+      <h2>6. Säännönmukaiset tietolähteet</h2>
+      <p>Henkilötiedot saadaan ensisijaisesti rekisteröidyltä itseltään yhteydenottolomakkeen, puhelun tai sähköpostin välityksellä.</p>
+
+      <h2>7. Tietojen siirto ja luovutus</h2>
+      <p>Henkilötietoja ei luovuteta kolmansille osapuolille ilman rekisteröidyn suostumusta, paitsi lakisääteisten velvollisuuksien täyttämiseksi (esim. kirjanpitäjälle, veroviranomaisille).</p>
+
+      <h2>8. Tietojen siirto EU:n ulkopuolelle</h2>
+      <p>Henkilötietoja ei siirretä EU:n tai ETA:n ulkopuolelle.</p>
+
+      <h2>9. Säilytysaika</h2>
+      <p>Asiakastietoja säilytetään sopimussuhteen ajan ja sen päättymisen jälkeen kirjanpitolain mukainen aika (pääsääntöisesti 6 vuotta). Tarjouspyynnöt, jotka eivät johda sopimukseen, poistetaan 12 kuukauden kuluttua.</p>
+
+      <h2>10. Rekisteröidyn oikeudet</h2>
+      <p>Rekisteröidyllä on seuraavat oikeudet:</p>
+      <ul>
+        <li><strong>Tarkastusoikeus:</strong> Oikeus tarkastaa itseään koskevat tiedot</li>
+        <li><strong>Oikaisupyyntö:</strong> Oikeus pyytää virheellisten tietojen korjaamista</li>
+        <li><strong>Poisto-oikeus:</strong> Oikeus pyytää tietojen poistamista ("oikeus tulla unohdetuksi"), ellei säilyttämiselle ole lakisääteistä perustetta</li>
+        <li><strong>Käsittelyn rajoittaminen:</strong> Oikeus pyytää käsittelyn rajoittamista tietyissä tilanteissa</li>
+        <li><strong>Vastustamisoikeus:</strong> Oikeus vastustaa tietojen käsittelyä oikeutetun edun perusteella</li>
+        <li><strong>Siirto-oikeus:</strong> Oikeus saada tiedot koneluettavassa muodossa</li>
+      </ul>
+      <p>Pyynnöt voi lähettää sähköpostilla osoitteeseen info@kareliarakennusoy.fi. Vastaamme pyynnöissä yhden kuukauden kuluessa.</p>
+
+      <h2>11. Tietoturva</h2>
+      <p>Henkilötiedot on suojattu asianmukaisesti. Fyysisiä ja sähköisiä tietoja käsitellään turvallisesti, ja pääsy tietoihin on rajattu vain niitä tarvitseville henkilöille.</p>
+
+      <h2>12. Evästeet</h2>
+      <p>Verkkosivusto voi käyttää teknisiä evästeitä sivuston toiminnan varmistamiseksi. Tietoja ei käytetä markkinointiin ilman erillistä suostumusta.</p>
+
+      <h2>13. Valitusoikeus</h2>
+      <p>Rekisteröidyllä on oikeus tehdä valitus tietosuojaviranomaiselle, jos hän katsoo, että henkilötietojen käsittely loukkaa tietosuoja-asetusta. Suomen tietosuojaviranomainen on Tietosuojavaltuutetun toimisto (<a href="https://tietosuoja.fi" style="color:var(--color-primary);">tietosuoja.fi</a>).</p>
+
+      <h2>14. Selosteen muutokset</h2>
+      <p>Pidätämme oikeuden päivittää tätä tietosuojaselostetta. Ajantasainen seloste on aina saatavilla verkkosivustoltamme.</p>
+
+      <div style="margin-top:40px; padding-top:24px; border-top:1px solid var(--color-border);">
+        <a href="index.html" class="btn btn-secondary btn-sm">← Takaisin etusivulle</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--#include file="footer.shtml" -->
+   
+<script>
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+</script>
+</body>
+</html>

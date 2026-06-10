@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Karelia Ulkorakennus Oy">
+  <meta name="robots" content="index, follow">
+  <title>Pyydä maksuton tarjous – Karelia Ulkorakennus Oy</title>
+  <meta name="description" content="Pyydä maksuton tarjous ulkorakentamisen projektistasi. Käymme pihallasi maksutta ja toimitamme tarjouksen ilman sitoumuksia.">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .tarjous-layout {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    .tarjous-form-card {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      padding: 44px 44px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .tarjous-form-card h2 {
+      margin-bottom: 8px;
+      font-size: 1.6rem;
+    }
+
+    .tarjous-form-card > p {
+      color: var(--color-muted);
+      margin-bottom: 32px;
+      font-size: 0.92rem;
+    }
+
+    .tarjous-sidebar {
+      position: sticky;
+      top: 88px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .sidebar-card {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .sidebar-card h4 { margin-bottom: 14px; }
+
+    .process-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .process-step {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      color: var(--color-white);
+      font-size: 0.78rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-text strong { display: block; font-size: 0.88rem; font-weight: 700; color: var(--color-text); margin-bottom: 2px; }
+    .step-text span { font-size: 0.8rem; color: var(--color-muted); }
+
+    .contact-direct { display: flex; flex-direction: column; gap: 12px; }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.88rem;
+    }
+
+    .contact-row .ico {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius);
+      background: var(--color-bg-alt);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-row strong { display: block; font-size: 0.75rem; color: var(--color-muted); font-weight: 600; letter-spacing: 0.04em; }
+    .contact-row a { color: var(--color-primary); font-weight: 600; font-size: 0.88rem; }
+
+    .checkbox-group { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .checkbox-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      min-width: 18px;
+      accent-color: var(--color-primary);
+      cursor: pointer;
+      border-radius: 3px;
+    }
+
+    .success-message {
+      display: none;
+      background: #e8f5e8;
+      border: 1.5px solid var(--color-primary);
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
+      text-align: center;
+      margin-top: 24px;
+    }
+
+    .success-message h3 { color: var(--color-primary); margin-bottom: 8px; }
+    .success-message p { color: var(--color-muted); font-size: 0.9rem; margin: 0; }
+
+    @media (max-width: 900px) {
+      .tarjous-layout { grid-template-columns: 1fr; }
+      .tarjous-sidebar { position: static; }
+      .tarjous-form-card { padding: 28px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <span>Karelia Ulkorakennus Oy</span>
+      Joensuu · Pohjois-Karjala
+    </a>
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Valikko">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Etusivu</a></li> 
+      <li class="has-dropdown">
+        <a href="palvelut.html">Palvelut<span class="dropdown-arrow">▼</span></a>
+        <button class="dropdown-toggle-btn" onclick="toggleDropdown(this)" aria-label="Avaa alavalikko">
+          <span class="dropdown-arrow">▼</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="terassit.html">Terassit</a></li>
+          <li><a href="pergolat.html">Pergolat</a></li>
+          <li><a href="piharakennukset.html">Piharakennukset</a></li>
+          <li><a href="aidat.html">Aidat</a></li>
+          <li><a href="piharemontti.html">Piharemontti</a></li>
+        </ul>
+       </li>
+      <li><a href="referenssit.html">Referenssit</a></li>
+      <li><a href="tietoa-meista.html">Tietoa meistä</a></li>
+      <li><a href="palautteet.html">Palautteet</a></li>
+      <li><a href="yhteystiedot.html">Yhteystiedot</a></li>
+      <li><a href="ajanvaraus.html" class="nav-cta">Varaa aika</a></li>
+      <li><a href="pyydä-tarjous.html" class="nav-cta">Pyydä tarjous</a></li> 
+    </ul>
+  </div>
+</nav>
+
+<!-- <nav class="breadcrumb">
+  <div class="container">
+    <ol>
+      <li><a href="index.html">Etusivu</a></li>
+      <li>Pyydä tarjous</li>
+    </ol>
+  </div>
+</nav> -->
+
+<div class="page-hero">
+  <div class="container">
+    <!-- <h4>Aloitetaan yhdessä</h4> -->
+    <h1>Tee tarjouspyyntö</h1>
+    <p>Maksuton kartoituskäynti pihallasi — tehdään alustava suunnitelma ja saat tarjouksen ilman sitoumuksia.</p>
+  </div>
+</div>
+
+<main>
+  <section class="section">
+    <div class="container">
+      <div class="tarjous-layout">
+
+        <!-- LOMAKE -->
+        <div class="tarjous-form-card">
+          <h2>Tee tarjouspyyntö</h2>
+          <p>Täytä lomake ja otamme yhteyttä 1–2 arkipäivän kuluessa.</p>
+
+          <!-- <form id="tarjousForm" onsubmit="submitForm(event)"> --> 
+          <form id="yhteyslomake" action="laheta-tarjousviesti.php" method="POST"> 
+            <div class="form-row">
+              <div class="form-group">
+                <label for="etunimi">Etunimi *</label>
+                <input type="text" id="etunimi" name="etunimi" placeholder="Matti" required>
+              </div>
+              <div class="form-group">
+                <label for="sukunimi">Sukunimi *</label>
+                <input type="text" id="sukunimi" name="sukunimi" placeholder="Virtanen" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Sähköposti *</label>
+              <input type="email" id="email" name="email" placeholder="matti@email.fi" required>
+            </div>
+
+            <div class="form-group">
+              <label for="puhelin">Puhelinnumero *</label>
+              <input type="tel" id="puhelin" name="puhelin" placeholder="+358 40 123 4567" required>
+            </div>
+
+            <div class="form-group">
+              <label for="osoite">Kohteen osoite / paikkakunta *</label>
+              <input type="text" id="osoite" name="osoite" placeholder="Joensuu omakotitalo, kerrostalon piha Liperi tai mökki Rääkkylässä" required>
+            </div>
+
+            <div class="form-group">
+              <label>Mistä palvelusta olet kiinnostunut? *</label>
+              <div class="checkbox-group">
+                <label class="checkbox-item"><input type="checkbox" name="palvelu" value="terassi"> Terassi</label>
+                <label class="checkbox-item"><input type="checkbox" name="palvelu" value="pergola"> Pergola</label>
+                <label class="checkbox-item"><input type="checkbox" name="palvelu" value="piharakennus"> Piharakennus (varasto, leikkimökki, pihasauna tms.)</label>
+                <label class="checkbox-item"><input type="checkbox" name="palvelu" value="aita"> Aita</label>
+                <label class="checkbox-item"><input type="checkbox" name="palvelu" value="piharemontti"> Piharemontti / kokonaisuus</label>
+                <label class="checkbox-item"><input type="checkbox" name="palvelu" value="muu"> Jotain muuta mielessä</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="lisatiedot">Kuvaus projektista</label>
+              <textarea id="lisatiedot" name="lisatiedot" placeholder="Kerro lyhyesti mitä haluaisit — koko, materiaalitoiveet, erityistoiveet tai muut tiedot jotka auttavat meitä valmistautumaan käyntiin..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="ajankohta">Toivottu ajankohta projektille</label>
+              <select id="ajankohta" name="ajankohta">
+                <option value="">Valitse ajankohta...</option>
+                <option>Mahdollisimman pian</option>
+                <option>Kevät <!--#config timefmt="%Y" --><!--#echo var="DATE_LOCAL" --></option>
+                <option>Kesä  <!--#config timefmt="%Y" --><!--#echo var="DATE_LOCAL" --></option>
+                <option>Syksy <!--#config timefmt="%Y" --><!--#echo var="DATE_LOCAL" --></option>
+                <option>Ei kiire, harkintavaiheessa</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="checkbox-item" style="font-size:0.8rem; color:var(--color-muted);">
+                <input type="checkbox" required> Olen lukenut <a href="tietosuojaseloste.html" style="color:var(--color-primary);">tietosuojaselosteen</a> ja hyväksyn yhteystietojeni käsittelyn tarjouksen toimittamista varten.
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg btn-full">Lähetä tarjouspyyntö →</button>
+          </form>
+
+          <div class="success-message" id="successMsg">
+            <div style="font-size:2.5rem; margin-bottom:12px;">✅</div>
+            <h3>Tarjouspyyntö vastaanotettu!</h3>
+            <p>Olemme yhteydessä 1–2 arkipäivän kuluessa ja sovitaan kartoituskäynnin ajankohta. Kiitos yhteydenotostasi!</p>
+          </div>
+        </div>
+
+        <!-- SIVUPALKKI -->
+        <div class="tarjous-sidebar">
+          <div class="sidebar-card">
+            <h4>Näin projekti etenee</h4>
+            <div class="process-steps">
+              <div class="process-step">
+                <div class="step-num">1</div>
+                <div class="step-text">
+                  <strong>Yhteydenotto</strong>
+                  <span>Täytä oheinen lomakkeen tai soita</span>
+                </div>
+              </div>
+              <div class="process-step">
+                <div class="step-num">2</div>
+                <div class="step-text">
+                  <strong>Maksuton kartoituskäynti</strong>
+                  <span>Käymme pihallasi arvioimassa työn</span>
+                </div>
+              </div>
+              <div class="process-step">
+                <div class="step-num">3</div>
+                <div class="step-text">
+                  <strong>Kirjallinen tarjous</strong>
+                  <span>Toimitamme tarjouksen 3–5 arkipäivässä</span>
+                </div>
+              </div>
+              <div class="process-step">
+                <div class="step-num">4</div>
+                <div class="step-text">
+                  <strong>Sopimus ja aloitus</strong>
+                  <span>Sovitaan aikataulu ja aloitetaan</span>
+                </div>
+              </div>
+              <div class="process-step">
+                <div class="step-num">5</div>
+                <div class="step-text">
+                  <strong>Valmis piha — ja takuu</strong>
+                  <span>Loppukatselmus ja 2 vuoden takuu</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-card">
+            <h4>Ota yhteyttä suoraan</h4>
+            <div class="contact-direct">
+              <div class="contact-row">
+                <div class="ico">📞</div>
+                <div>
+                  <strong>Puhelin</strong>
+                  <a href="tel:+358401234567">+358 40 123 4567</a>
+                </div>
+              </div>
+              <div class="contact-row">
+                <div class="ico">✉️</div>
+                <div>
+                  <strong>Sähköposti</strong>
+                  <a href="mailto:info@kareliarakennusoy.fi">info@kareliarakennusoy.fi</a>
+                </div>
+              </div>
+              <div class="contact-row">
+                <div class="ico">🕐</div>
+                <div>
+                  <strong>Palveluaika</strong>
+                  <span style="font-size:0.88rem;">Ma–Pe klo 7–17</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-card" style="background: var(--color-primary); color: white;">
+            <!-- <div style="font-size:2rem; margin-bottom:10px;">🛡️</div> -->
+            <h4 style="color:var(--color-accent);">Laatutakuu</h4>
+            <p style="color:rgba(255,255,255,0.8); font-size:0.88rem; margin:0;">2 vuoden takuu. Kirjallinen sopimus, kiinteä hinta.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<!--#include file="footer.shtml" -->
+
+<script>
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  function toggleDropdown(btn) {
+    btn.closest('li').classList.toggle('open');
+  }
+   
+</script>
+</body>
+</html>

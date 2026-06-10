@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Karelia Ulkorakennus Oy">
+  <meta name="robots" content="index, follow">
+  <title>Tietoa meistä – Karelia Ulkorakennus Oy</title>
+  <meta name="description" content="Karelia Ulkorakennus Oy on joensuulainen ulkorakentamisen yritys. Lue tarinamme, arvomme ja palvelualueemme.">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .about-lead {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .about-lead-img {
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, #2D4A2D, #1e3520);
+      min-height: 380px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 7rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .about-lead-text h4 { margin-bottom: 12px; }
+    .about-lead-text h2 { margin-bottom: 20px; }
+    .about-lead-text p { color: var(--color-muted); margin-bottom: 18px; }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .value-card {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      box-shadow: var(--shadow-sm);
+      border-top: 3px solid var(--color-primary);
+    }
+
+    .value-icon { font-size: 2rem; margin-bottom: 14px; display: block; }
+    .value-card h3 { font-size: 1.1rem; margin-bottom: 10px; }
+    .value-card p { font-size: 0.88rem; color: var(--color-muted); margin: 0; }
+
+    .quality-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .quality-text h4 { margin-bottom: 10px; }
+    .quality-text h2 { margin-bottom: 20px; }
+    .quality-text p { color: var(--color-muted); margin-bottom: 16px; }
+
+    .quality-points {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .quality-point {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .quality-point-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--color-bg-alt);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .quality-point h4 { font-family: var(--font-body); font-size: 0.9rem; font-weight: 700; letter-spacing: 0; text-transform: none; color: var(--color-text); margin-bottom: 3px; }
+    .quality-point p { font-size: 0.82rem; color: var(--color-muted); margin: 0; }
+
+    .quality-img {
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, #c8a060, #8B5E3C);
+      min-height: 360px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 6rem;
+      box-shadow: var(--shadow);
+    }
+
+    .area-map {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      box-shadow: var(--shadow-sm);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .area-map-visual {
+      background: var(--color-bg-alt);
+      border-radius: var(--radius-lg);
+      min-height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+    }
+
+    .area-list { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+    .area-item { display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--color-text); }
+    .area-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-primary); flex-shrink: 0; }
+
+    @media (max-width: 800px) {
+      .about-lead { grid-template-columns: 1fr; gap: 32px; }
+      .values-grid { grid-template-columns: 1fr; }
+      .quality-grid { grid-template-columns: 1fr; }
+      .area-map { grid-template-columns: 1fr; gap: 28px; padding: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <span>Karelia Ulkorakennus Oy</span>
+      Joensuu · Pohjois-Karjala
+    </a>
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Valikko">☰</button> 
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Etusivu</a></li> 
+      <li class="has-dropdown">
+        <a href="palvelut.html">Palvelut<span class="dropdown-arrow">▼</span></a>
+        <button class="dropdown-toggle-btn" onclick="toggleDropdown(this)" aria-label="Avaa alavalikko">
+          <span class="dropdown-arrow">▼</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="terassit.html">Terassit</a></li>
+          <li><a href="pergolat.html">Pergolat</a></li>
+          <li><a href="piharakennukset.html">Piharakennukset</a></li>
+          <li><a href="aidat.html">Aidat</a></li>
+          <li><a href="piharemontti.html">Piharemontti</a></li>
+        </ul>
+       </li>
+      <li><a href="referenssit.html">Referenssit</a></li>
+      <li><a href="tietoa-meista.html" class="active">Tietoa meistä</a></li>
+      <li><a href="palautteet.html">Palautteet</a></li>
+      <li><a href="yhteystiedot.html">Yhteystiedot</a></li>
+      <li><a href="ajanvaraus.html" class="nav-cta">Varaa aika</a></li>
+      <!--<li><a href="pyydä-tarjous.html" class="nav-cta">Pyydä tarjous</a></li> -->
+      <li><a href="materiaalit/materiaalit.html" class="nav-cta">ResQ</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- <nav class="breadcrumb">
+  <div class="container">
+    <ol>
+      <li><a href="index.html">Etusivu</a></li>
+      <li>Tietoa meistä</li>
+    </ol>
+  </div>
+</nav> -->
+
+<div class="page-hero">
+  <div class="container">
+    <!-- <h4>Yritys</h4> -->
+    <h1>Tietoa meistä</h1>
+    <p>Olemme joensuulainen ulkorakentamisen yritys, joka on rakentanut pohjoiskarjalaisia pihoja yli kymmenen vuoden ajan.</p>
+  </div>
+</div>
+
+<main>
+  <!-- TARINA -->
+  <section class="section">
+    <div class="container">
+      <div class="about-lead">
+        <figure>
+      		<img src="images/meista_rakennus.webp" alt="Puusta tehty ulkoterassi" loading="lazy"> 
+    	</figure>
+        <!-- <div class="about-lead-img">🌲</div> -->
+        <div class="about-lead-text">
+          <!-- <h4>Tarinamme</h4> -->
+          <h2>Paikallinen tekijä, joka tuntee pohjoiskarjalaisen pihan</h2>
+          <p>Karelia Ulkorakennus Oy on pohjoiskarjalainen piharakentamisen ja ulkorakennusten ammattilainen. Olemme toteuttaneet asiakkaidemme projekteja jo yli kymmenen vuoden ajan – huolellisesti, laadukkaista materiaaleista ja luontoa kunnioittaen.</p>
+          <p>Meille piha ei ole pelkkä tontin osa. Se on kodin jatke, yhteisten hetkien paikka ja tärkeä osa asumisviihtyvyyttä.</p>
+          <p>Toimimme Joensuussa ja koko Pohjois-Karjalan alueella. Palvelemme omakotitaloasujia, mökkiläisiä ja taloyhtiöitä.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TUNNUSLUVUT -->
+  <section class="section section-dark">
+    <div class="container">
+      <div class="stats-row">
+        <div class="stat-item"><span class="stat-number">2013</span><span class="stat-label">Perustettu</span></div>
+        <div class="stat-item"><span class="stat-number">200+</span><span class="stat-label">Toteutettua projektia</span></div>
+        <div class="stat-item"><span class="stat-number">10+</span><span class="stat-label">Vuotta kokemusta</span></div>
+        <div class="stat-item"><span class="stat-number">98%</span><span class="stat-label">Tyytyväisiä asiakkaita</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARVOT -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header center">
+        <!-- <h4>Arvomme</h4> -->
+        <h2>Yrityksen arvot</h2>
+      </div>
+      <div class="values-grid">
+        <div class="value-card">
+          <!-- <span class="value-icon">🤝</span> -->
+          <h3>Rehellisyys</h3>
+          <p>Kerromme mitä on mahdollista tehdä, mitä se maksaa ja kauanko kestää. Ei tyhjiä lupauksia.</p>
+        </div>
+        <div class="value-card">
+          <!-- <span class="value-icon">🔨</span> -->
+          <h3>Käsityötaito</h3>
+          <p>Teemme jokaisen projektin huolella alusta loppuun. Viimeistely ratkaisee — ja se näkyy lopputuloksessa.</p>
+        </div>
+        <div class="value-card">
+          <!-- <span class="value-icon">🌱</span> -->
+          <h3>Paikallisuus</h3>
+          <p>Tunnemme Pohjois-Karjalan ilmaston, maaperän ja rakennuskulttuurin. Tiedämme mikä kestää täällä.</p>
+        </div>
+        <div class="value-card">
+          <!-- <span class="value-icon">📅</span> -->
+          <h3>Aikataulussa</h3>
+          <p>Pidämme sovitut aikataulut. Projekti alkaa ja loppuu kun on sovittu — eikä piha ole keskeneräisenä viikkoja.</p>
+        </div>
+        <div class="value-card">
+          <!-- <span class="value-icon">♻️</span> -->
+          <h3>Kestävyys</h3>
+          <p>Valitsemme materiaalit pitkällä tähtäimellä. Laadukas rakenne kestää vuosikymmeniä eikä vaadi jatkuvaa huoltoa.</p>
+        </div>
+        <div class="value-card">
+          <!-- <span class="value-icon">📞</span> -->
+          <h3>Palvelu ei lopu</h3>
+          <p>Takuuaikana ja sen jälkeenkin — olemme tavoitettavissa jos jokin mietityttää. Asiakas ei jää yksin.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LAATU & TAKUU -->
+  <section class="section">
+    <div class="container">
+      <div class="quality-grid">
+        <div class="quality-text">
+          <!-- <h4>Laatu &amp; takuu</h4> -->
+          <h2>Laadulle takuu</h2>
+          <p>Laatu on meille kunnia-asia. Siksi kaikille töillemme myönnetään 2 vuoden takuu rakennusvirheitä vastaan.</p>
+
+          <div class="quality-points">
+            
+            <div class="quality-point">
+              <!-- <div class="quality-point-icon">📋</div> -->
+              <div>
+                <h4>Vuoden 2024 yritys</h4>
+                <p>Palkittu vuonna 2024 vuoden yrityksenä.</p>
+              </div>
+            </div>
+            
+            <div class="quality-point">
+              <!-- <div class="quality-point-icon">🛡️</div> -->
+              <div>
+                <h4>2 vuoden rakennustakuu</h4>
+                <p>Kattaa rakennusvirheet</p>
+              </div>
+            </div>
+            
+            
+            
+            <div class="quality-point">
+              <!-- <div class="quality-point-icon">🔍</div> -->
+              <div>
+                <h4>Loppukatselmus yhdessä</h4>
+                <p>Käymme valmistuneen työn läpi asiakkaan kanssa ennen luovutusta. Asiakas hyväksyy työn.</p>
+              </div>
+            </div>
+            <div class="quality-point">
+              <!-- <div class="quality-point-icon">🪵</div> -->
+              <div>
+                <h4>Laadukkaat materiaalit</h4>
+                <p>Käytämme vain testattuja ja kotimaisia materiaaleja. Ei halpaa tavaraa joka hajoaa ensi talvena.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <figure>
+      		<img src="images/meista_pokaali.webp" alt="Voittopokaali, vuoden yrittäjä" loading="lazy"> 
+    	</figure>
+
+        <!-- <div class="quality-img">🏆</div> -->
+      </div>
+    </div>
+  </section>
+
+  <!-- PALVELUALUE -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <!-- <h4>Missä toimimme</h4> -->
+        <h2>Palvelualue</h2>
+      </div>
+      <div class="area-map">
+        <figure>
+      		<img src="images/Pohjois-Karjala.png" alt="Kartta palvelualueesta" loading="lazy"> 
+    	</figure>
+
+        <!-- <div class="area-map-visual">🗺️</div> -->
+        <div>
+          <p style="color:var(--color-muted); margin-bottom:20px;">Kotialueemme on Joensuu ja lähikunnat, mutta otamme töitä vastaan koko Pohjois-Karjalan alueelta. Mökkiasiakkaille palvelemme myös sopimusten mukaan laajemmin.</p>
+          <h4 style="margin-bottom:12px;">Ensisijaiset alueet</h4>
+          <div class="area-list">
+            <div class="area-item"><div class="area-dot"></div>Joensuun alue</div>
+            <div class="area-item"><div class="area-dot"></div>Kontiolahti</div>
+            <div class="area-item"><div class="area-dot"></div>Liperi</div>
+            <div class="area-item"><div class="area-dot"></div>Outokumpu</div>
+            <div class="area-item"><div class="area-dot"></div>Polvijärvi</div>
+            <div class="area-item"><div class="area-dot"></div>Rääkkylä</div>
+          </div>
+          <p style="font-size:0.85rem; color:var(--color-muted); margin-top:20px;">Muut alueet sopimuksen mukaan — kysy rohkeasti!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" style="background: var(--color-primary); text-align:center;">
+    <div class="container">
+      <h2 style="color:white; margin-bottom:12px;">Ota yhteyttä</h2>
+      <p style="color:rgba(255,255,255,0.75); margin-bottom:32px; max-width:480px; margin-left:auto; margin-right:auto;">Kartoituskäynti on maksuton eikä sitouta vielä mihinkään. Paras tapa selvittää mitä pihallasi on mahdollista tehdä.</p>
+      <!--<a href="pyydä-tarjous.html" class="btn btn-primary btn-lg">Pyydä maksuton tarjous</a>-->
+      <a href="ajanvaraus.html" class="btn btn-primary btn-lg">Varaa kartoituskäynti</a>
+    </div>
+  </section>
+</main>
+
+<!--#include file="footer.shtml"-->
+  
+<script>
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+      }
+  function toggleDropdown(btn) {
+    btn.closest('li').classList.toggle('open');
+  }
+</script>
+</body>
+</html>

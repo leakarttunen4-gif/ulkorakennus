@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Karelia Ulkorakennus Oy">
+  <meta name="robots" content="index, follow">
+  <title>Terassit – Karelia Ulkorakennus Oy</title>
+  <meta name="description" content="Terassit omakotitaloihin, mökeille ja taloyhtiöihin Joensuussa. Painekyllästetty puu, lämpöpuu tai komposiitti. Pyydä maksuton tarjous.">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ---- Palvelu-sivun rakenne ---- */
+    .service-section {
+      padding: 72px 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .service-section:last-of-type { border-bottom: none; }
+
+    .service-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .service-layout figure {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      margin: 0;
+    }
+    .service-layout figure img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .service-content h2 { margin-bottom: 16px; }
+    .service-content p { color: var(--color-muted); margin-bottom: 20px; }
+
+    .service-features {
+      margin: 24px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: var(--color-text);
+    }
+    .feature-icon {
+      color: var(--color-primary);
+      font-weight: 700;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+
+    /* ---- Materiaalit ---- */
+    .material-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .material-card {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-sm);
+      border-top: 3px solid var(--color-primary);
+    }
+    .material-card h3 { font-size: 1.1rem; margin-bottom: 10px; }
+    .material-card p { font-size: 0.85rem; color: var(--color-muted); margin-bottom: 0; }
+
+    /* ---- Mobiilikorjaukset terassit.html ---- */
+	@media (max-width: 700px) {
+    .service-layout {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  	}
+
+  	.material-cards {
+    grid-template-columns: 1fr;
+  	}
+	}
+
+	@media (max-width: 900px) {
+  	.material-cards {
+    grid-template-columns: 1fr 1fr;
+  	}
+	}
+    
+  </style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <span>Karelia Ulkorakennus Oy</span>
+      Joensuu · Pohjois-Karjala
+    </a>
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Valikko">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Etusivu</a></li>
+      <li class="has-dropdown">
+        <a href="palvelut.html" class="active">Palvelut<span class="dropdown-arrow">▼</span></a>
+        <button class="dropdown-toggle-btn" onclick="toggleDropdown(this)" aria-label="Avaa alavalikko">
+          <span class="dropdown-arrow">▼</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="terassit.html" class="active">Terassit</a></li>
+          <li><a href="pergolat.html">Pergolat</a></li>
+          <li><a href="piharakennukset.html">Piharakennukset</a></li>
+          <li><a href="aidat.html">Aidat</a></li>
+          <li><a href="piharemontti.html">Piharemontti</a></li>
+        </ul>
+      </li>
+      <li><a href="referenssit.html">Referenssit</a></li>
+      <li><a href="tietoa-meista.html">Tietoa meistä</a></li>
+      <li><a href="palautteet.html">Palautteet</a></li>
+      <li><a href="yhteystiedot.html">Yhteystiedot</a></li>
+      <li><a href="ajanvaraus.html" class="nav-cta">Varaa aika</a></li>
+      <!--<li><a href="pyydä-tarjous.html" class="nav-cta">Pyydä tarjous</a></li>-->
+      <li><a href="materiaalit/materiaalit.html" class="nav-cta">ResQ</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <h1>Terassit</h1>
+    <p>Terassilla lisää asumisneliöitä. Suunnittelemme ja rakennamme terassit erikokoisiin kohteisiin — aina asiakkaan mittojen mukaan.</p>
+  </div>
+</div>
+
+<main>
+  <section class="service-section">
+    <div class="container">
+      <div class="service-layout">
+        <figure>
+          <img src="images/palvelut_terassi.webp" alt="Puusta tehty ulkoterassi kulkuportailla" loading="lazy">
+        </figure>
+        <div class="service-content">
+          <h2>Terassi juuri sinulle</h2>
+          <p>Terassi on yksi pihan tärkeimmistä tiloista — se jatkaa kodin sisätiloja ulos ja luo paikan oleskelulle, ruokailulle ja rauhoittumiselle. Rakennamme terassit omakotitaloihin, mökeille ja taloyhtiöihin, aina asiakkaan tarpeiden ja maaston mukaan.</p>
+          <p>Materiaalin valinta, koko, kaiteet ja perustukset suunnitellaan kohdekohtaisesti. Käymme paikalla ennen tarjouksen tekoa, jotta lopputulos vastaa juuri teidän pihaanne.</p>
+          <div class="service-features">
+            <div class="feature-item"><span class="feature-icon">✓</span><span>Painekyllästetty puu, lämpöpuu tai komposiitti</span></div>
+            <div class="feature-item"><span class="feature-icon">✓</span><span>Kaiteet ja portaat tarpeen mukaan</span></div>
+            <div class="feature-item"><span class="feature-icon">✓</span><span>Soveltuu omakotitaloihin, mökeille ja taloyhtiöihin</span></div>
+            <div class="feature-item"><span class="feature-icon">✓</span><span>Perustukset maaperän mukaan — pilarit tai laatta</span></div>
+            <div class="feature-item"><span class="feature-icon">✓</span><span>Maksuton kartoituskäynti ennen tarjousta</span></div>
+            <div class="feature-item"><span class="feature-icon">✓</span><span>2 vuoden takuu</span></div>
+          </div>
+          <a href="pyydä-tarjous.html" class="btn btn-primary">Pyydä tarjous terassista</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MATERIAALIT -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header center">
+        <h2>Mitä materiaaleja käytämme?</h2>
+        <p>Valitsemme materiaalit aina projektin vaatimusten, asiakkaan toiveiden ja pohjoisen ilmaston mukaan.</p>
+      </div>
+      <div class="material-cards">
+        <div class="material-card">
+          <h3>Painekyllästetty puu</h3>
+          <p>Edullinen ja kestävä perusvaihtoehto. Soveltuu hyvin rakenteisiin, kuten terassilaudoituksiin. Huoltoväli noin 3–5 vuotta.</p>
+        </div>
+        <div class="material-card">
+          <h3>Lämpöpuu</h3>
+          <p>Lämpökäsitelty puu, joka kestää kosteutta ja vaatii vähemmän huoltoa. Kaunis harmaa patina ajan myötä. Erinomainen terasseille ja näkyviin rakenteisiin.</p>
+        </div>
+        <div class="material-card">
+          <h3>Komposiitti</h3>
+          <p>Puun ja muovin yhdistelmä. Erittäin kestävä, ei vaadi maalaamista tai käsittelyä. Pitkä käyttöikä ja siisti ulkonäkö vuodesta toiseen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" style="background: var(--color-primary); text-align:center;">
+    <div class="container">
+      <h2 style="color:white; margin-bottom:12px;">Kiinnostuitko? Varaa kartoituskäynti.</h2>
+      <p style="color:rgba(255,255,255,0.75); margin-bottom:32px; max-width:480px; margin-left:auto; margin-right:auto;">Käymme pihallasi maksutta arvioimassa työn laajuuden ja toimitamme tarjouksen ilman sitoumuksia.</p>
+      <!--<a href="pyydä-tarjous.html" class="btn btn-primary btn-lg">Pyydä maksuton tarjous</a>-->
+      <a href="ajanvaraus.html" class="btn btn-primary btn-lg">Varaa kartoituskäynti</a>
+    </div>
+  </section>
+</main>
+
+<!--#include file="footer.shtml"-->
+
+<script>
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  function toggleDropdown(btn) {
+    btn.closest('li').classList.toggle('open');
+  }
+</script>
+</body>
+</html>

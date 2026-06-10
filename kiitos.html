@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Karelia Ulkorakennus Oy">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Kiitos viestistä – Karelia Ulkorakennus Oy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .thank-you-section {
+      min-height: calc(100vh - var(--nav-height) - 200px);
+      display: flex;
+      align-items: center;
+      padding: 80px 0;
+    }
+
+    .thank-you-card {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      padding: 64px 56px;
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .thank-you-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--color-primary);
+    }
+
+    .thank-you-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: #e8f0e8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 28px;
+      font-size: 2rem;
+    }
+
+    .thank-you-card h1 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      margin-bottom: 16px;
+      color: var(--color-primary);
+    }
+
+    .thank-you-card p {
+      color: var(--color-muted);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 12px;
+      max-width: 440px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .thank-you-card p:last-of-type {
+      margin-bottom: 36px;
+    }
+
+    .thank-you-links {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 600px) {
+      .thank-you-card { padding: 40px 24px; }
+      .thank-you-links { flex-direction: column; align-items: stretch; }
+      .thank-you-links .btn { text-align: center; }
+    }
+
+    /* Nav dropdown */
+    .nav-links li.has-dropdown { position: relative; }
+    .nav-links li.has-dropdown > a { display: flex; align-items: center; gap: 5px; }
+    .nav-links li.has-dropdown > a .dropdown-arrow { display: inline-block; font-size: 0.65rem; transition: transform 0.25s ease; line-height: 1; margin-top: 1px; }
+    @media (min-width: 801px) {
+      .nav-links li.has-dropdown > a { padding-bottom: 16px; margin-bottom: -16px; }
+      .nav-links li.has-dropdown .dropdown-menu { display: block; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(6px); transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease; }
+      .nav-links li.has-dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
+      .nav-links li.has-dropdown:hover > a .dropdown-arrow { transform: rotate(180deg); }
+      .dropdown-toggle-btn { display: none; }
+    }
+    .dropdown-menu { position: absolute; top: calc(100% + 8px); left: 0; background: var(--color-white); border-radius: var(--radius-lg); box-shadow: 0 8px 32px rgba(0,0,0,0.13); min-width: 210px; z-index: 200; padding: 8px 0; border-top: 3px solid var(--color-primary); }
+    .dropdown-menu li { list-style: none; }
+    .dropdown-menu li a { display: block; padding: 10px 20px; font-size: 0.9rem; color: var(--color-text); white-space: nowrap; transition: background 0.15s, color 0.15s; }
+    .dropdown-menu li a:hover { background: var(--color-bg); color: var(--color-primary); }
+    @media (max-width: 800px) {
+      .nav-links li.has-dropdown > a .dropdown-arrow { display: none; }
+      .dropdown-toggle-btn { display: flex; align-items: center; background: none; border: none; cursor: pointer; padding: 10px 12px; color: rgba(255,255,255,0.85); font-size: 0.85rem; line-height: 1; }
+      .nav-links li.has-dropdown { display: flex; flex-wrap: wrap; align-items: center; }
+      .nav-links li.has-dropdown > a { flex: 1; }
+      .dropdown-menu { position: static; display: none; opacity: 1; visibility: visible; pointer-events: auto; transform: none; box-shadow: none; border-radius: 0; border-top: none; border-left: 3px solid var(--color-primary); width: 100%; padding: 4px 0 4px 8px; background: rgba(255,255,255,0.06); }
+      .dropdown-menu li a { padding: 8px 16px; color: rgba(255,255,255,0.75); }
+      .nav-links li.has-dropdown.open .dropdown-menu { display: block; }
+      .nav-links li.has-dropdown.open .dropdown-toggle-btn .dropdown-arrow { transform: rotate(180deg); }
+      .dropdown-toggle-btn .dropdown-arrow { transition: transform 0.25s ease; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <span>Karelia Ulkorakennus Oy</span>
+      Joensuu · Pohjois-Karjala
+    </a>
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Valikko">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Etusivu</a></li>
+      <li class="has-dropdown">
+        <a href="palvelut.html">Palvelut <span class="dropdown-arrow">▼</span></a>
+        <button class="dropdown-toggle-btn" onclick="toggleDropdown(this)" aria-label="Avaa alavalikko">
+          <span class="dropdown-arrow">▼</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="terassit.html">Terassit</a></li>
+          <li><a href="pergolat.html">Pergolat</a></li>
+          <li><a href="piharakennukset.html">Piharakennukset</a></li>
+          <li><a href="aidat.html">Aidat</a></li>
+          <li><a href="piharemontti.html">Piharemontti</a></li>
+        </ul>
+      </li>
+      <li><a href="referenssit.html">Referenssit</a></li>
+      <li><a href="tietoa-meista.html">Tietoa meistä</a></li>
+      <li><a href="palautteet.html">Palautteet</a></li>
+      <li><a href="yhteystiedot.html">Yhteystiedot</a></li>
+      <li><a href="pyydä-tarjous.html" class="nav-cta">Pyydä tarjous</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <section class="thank-you-section">
+    <div class="container">
+      <div class="thank-you-card">
+        <div class="thank-you-icon">✉️</div>
+        <h1>Kiitos viestistä!</h1>
+        <p>Viestisi on vastaanotettu. Olemme yhteydessä sinuun mahdollisimman pian — yleensä saman tai seuraavan arkipäivän aikana.</p>
+        <p>Jos asiasi on kiireellinen, voit tavoittaa meidät myös suoraan puhelimitse.</p>
+        <div class="thank-you-links">
+          <a href="index.html" class="btn btn-secondary">Palaa etusivulle</a>
+          <a href="referenssit.html" class="btn btn-ghost">Katso referenssit</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!--#include file="footer.shtml"-->
+
+<script>
+  function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
+  function toggleDropdown(btn) { btn.closest('li').classList.toggle('open'); }
+</script>
+</body>
+</html>

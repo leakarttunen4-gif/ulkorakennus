@@ -1,0 +1,42 @@
+<!--
+  Upota sivuille: <!--#include file="header.shtml"-->
+  <!--Muista lisätä aktiivinen nav-linkki sivukohtaisesti JS:llä tai lisäämällä class="active" manuaalisesti. --> 
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <span>Karelia Ulkorakennus Oy</span>
+      Joensuu · Pohjois-Karjala
+    </a>
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Avaa valikko">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="palvelut.html" data-page="palvelut">Palvelut</a></li>
+      <li><a href="referenssit.html" data-page="referenssit">Referenssit</a></li>
+      <li><a href="tietoa-meista.html" data-page="tietoa-meista">Tietoa meistä</a></li>
+      <li><a href="palautteet.html" data-page="palautteet">Palautteet</a></li>
+      <li><a href="yhteystiedot.html" data-page="yhteystiedot">Yhteystiedot</a></li>
+      <li><a href="ajanvaraus.html" class="nav-cta">Varaa aika</a></li>
+      <li><a href="pyydä-tarjous.html" data-page="pyydä-tarjous" class="nav-cta">Pyydä tarjous</a></li> 
+    </ul>
+  </div>
+</nav>
+
+<script>
+  /* Merkitsee aktiivisen navigaatiolinkin automaattisesti
+     sivun tiedostonimen perusteella */
+  (function () {
+    var current = window.location.pathname.split('/').pop().replace('.html', '');
+    document.querySelectorAll('.site-nav [data-page]').forEach(function (a) {
+      if (a.dataset.page === current) {
+        a.classList.add('active');
+      }
+    });
+  })();
+
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+</script>

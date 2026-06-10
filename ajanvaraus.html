@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Karelia Ulkorakennus Oy">
+  <meta name="robots" content="index, follow">
+  <title>Varaa kartoituskäynti – Karelia Ulkorakennus Oy</title>
+  <meta name="description" content="Varaa maksuton kartoituskäynti. Valitse sinulle sopiva aika — suunnittelija tulee pihallesi ja toimitamme tarjouksen ilman sitoumuksia.">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Kalenteri-layout ── */
+    .varaus-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .varaus-vasen, .varaus-oikea {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .varaus-card {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .varaus-card h2 {
+      font-size: 1.4rem;
+      margin-bottom: 6px;
+    }
+
+    .varaus-card > p {
+      color: var(--color-muted);
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+    }
+
+    /* ── Rooli-valitsin ── */
+    .rooli-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .rooli-tab {
+      padding: 9px 20px;
+      border-radius: var(--radius);
+      border: 2px solid var(--color-border);
+      background: var(--color-bg);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-muted);
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+
+    .rooli-tab:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+    .rooli-tab.aktiivinen {
+      border-color: var(--color-primary);
+      background: var(--color-primary);
+      color: var(--color-white);
+    }
+
+    /* ── Kalenteri ── */
+    .kalenteri-otsikko {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .kalenteri-otsikko h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-text);
+    }
+
+    .kalenteri-nav {
+      background: none;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius);
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      cursor: pointer;
+      color: var(--color-muted);
+      transition: all 0.15s;
+    }
+
+    .kalenteri-nav:hover { border-color: var(--color-primary); color: var(--color-primary); }
+    .kalenteri-nav:disabled { opacity: 0.3; cursor: default; }
+
+    .kalenteri-viikonpaivat {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+
+    .kalenteri-viikonpaiva {
+      text-align: center;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--color-muted);
+      letter-spacing: 0.04em;
+      padding: 4px 0;
+    }
+
+    .kalenteri-paivat {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+
+    .kalenteri-paiva {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius);
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      position: relative;
+      border: 2px solid transparent;
+    }
+
+    .kalenteri-paiva.tyhja { cursor: default; }
+    .kalenteri-paiva.mennyt { color: var(--color-border); cursor: default; }
+
+    .kalenteri-paiva.vapaa {
+      background: #e8f5e9;
+      color: var(--color-primary);
+    }
+
+    .kalenteri-paiva.vapaa:hover {
+      background: var(--color-primary);
+      color: white;
+      transform: scale(1.08);
+    }
+
+    .kalenteri-paiva.valittu {
+      background: var(--color-primary);
+      color: white;
+      border-color: var(--color-primary-dark);
+      box-shadow: 0 2px 8px rgba(45,74,45,0.35);
+    }
+
+    .kalenteri-paiva.taanaan {
+      border-color: var(--color-accent);
+    }
+
+    /* piste vapaat ajat -merkintä */
+    .kalenteri-paiva.vapaa::after {
+      content: '';
+      position: absolute;
+      bottom: 3px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--color-primary);
+    }
+
+    .kalenteri-paiva.valittu::after { background: white; }
+
+    /* ── Aikaslotit ── */
+    .aikaslotit-otsikko {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--color-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      margin-top: 28px;
+    }
+
+    .aikaslotit {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .aikaslotin-nappi {
+      padding: 12px 8px;
+      border-radius: var(--radius);
+      border: 1.5px solid var(--color-primary);
+      background: #e8f5e9;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: center;
+    }
+
+    .aikaslotin-nappi:hover {
+      background: var(--color-primary);
+      color: white;
+    }
+
+    .aikaslotin-nappi.valittu {
+      background: var(--color-primary);
+      color: white;
+      border-color: var(--color-primary);
+    }
+
+    .ei-aikoja {
+      text-align: center;
+      color: var(--color-muted);
+      font-size: 0.9rem;
+      padding: 20px;
+    }
+
+    /* ── Ehdota aikaa -osio ── */
+    .ehdota-toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px;
+      background: var(--color-bg-alt);
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--color-muted);
+      border: 1.5px dashed var(--color-border);
+      transition: all 0.15s;
+      margin-top: 20px;
+    }
+
+    .ehdota-toggle:hover { border-color: var(--color-primary); color: var(--color-primary); }
+    .ehdota-toggle.aktiivinen { border-color: var(--color-primary); background: #f0f7f0; color: var(--color-primary); }
+
+    .ehdota-kentat { display: none; margin-top: 16px; }
+    .ehdota-kentat.nakyvissa { display: block; }
+
+    /* ── Lomake ── */
+    .lomake-card {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .lomake-card h2 {
+      font-size: 1.4rem;
+      margin-bottom: 6px;
+    }
+
+    .lomake-card > p {
+      color: var(--color-muted);
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+    }
+
+    .valittu-aika-info {
+      display: none;
+      background: #e8f5e9;
+      border: 1.5px solid var(--color-primary);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      margin-bottom: 24px;
+      font-size: 0.9rem;
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    .valittu-aika-info.nakyvissa { display: flex; align-items: center; gap: 10px; }
+
+    .checkbox-group { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .checkbox-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      min-width: 18px;
+      accent-color: var(--color-primary);
+      cursor: pointer;
+    }
+
+    /* ── Vahvistusnäkymä ── */
+    .vahvistus {
+      display: none;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .vahvistus.nakyvissa { display: block; }
+
+    .vahvistus-ikoni {
+      font-size: 3.5rem;
+      margin-bottom: 16px;
+    }
+
+    .vahvistus h2 { color: var(--color-primary); margin-bottom: 10px; }
+    .vahvistus p { color: var(--color-muted); font-size: 0.95rem; }
+
+    .vahvistus-kortti {
+      background: var(--color-bg-alt);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      text-align: left;
+      margin: 20px 0;
+      font-size: 0.9rem;
+    }
+
+    .vahvistus-kortti strong { display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-muted); margin-bottom: 3px; }
+    .vahvistus-kortti .arvo { color: var(--color-text); font-weight: 600; margin-bottom: 14px; }
+    .vahvistus-kortti .arvo:last-child { margin-bottom: 0; }
+
+    /* ── Latausanimaatio ── */
+    .ladataan { display: none; text-align: center; padding: 40px 20px; color: var(--color-muted); font-size: 0.9rem; }
+    .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid var(--color-bg-alt);
+      border-top-color: var(--color-primary);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin: 0 auto 16px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Virheviesti ── */
+    .virhe-viesti {
+      display: none;
+      background: #fdecea;
+      border: 1.5px solid #e74c3c;
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      color: #c0392b;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+    }
+
+    .virhe-viesti.nakyvissa { display: block; }
+
+    /* ── Legenda ── */
+    .legenda {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 0.78rem;
+      color: var(--color-muted);
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .legenda-kohta { display: flex; align-items: center; gap: 6px; }
+    .legenda-piste {
+      width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0;
+    }
+    .legenda-vapaa  { background: #e8f5e9; border: 1px solid var(--color-primary); }
+    .legenda-valittu { background: var(--color-primary); }
+    .legenda-mennyt { background: var(--color-bg-alt); border: 1px solid var(--color-border); }
+
+    /* ── Sivupalkki ── */
+    .info-sidebar { display: flex; flex-direction: column; gap: 20px; }
+
+    .info-card {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      padding: 26px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .info-card h4 { margin-bottom: 14px; }
+
+    .process-steps { display: flex; flex-direction: column; gap: 14px; }
+
+    .process-step { display: flex; gap: 12px; align-items: flex-start; }
+
+    .step-num {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-text strong { display: block; font-size: 0.85rem; font-weight: 700; color: var(--color-text); margin-bottom: 1px; }
+    .step-text span   { font-size: 0.78rem; color: var(--color-muted); }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.88rem;
+      margin-bottom: 12px;
+    }
+
+    .contact-row:last-child { margin-bottom: 0; }
+
+    .contact-row .ico {
+      width: 34px; height: 34px;
+      border-radius: var(--radius);
+      background: var(--color-bg-alt);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; flex-shrink: 0;
+    }
+
+    .contact-row strong { display: block; font-size: 0.72rem; color: var(--color-muted); font-weight: 600; letter-spacing: 0.04em; }
+    .contact-row a { color: var(--color-primary); font-weight: 600; font-size: 0.88rem; }
+
+    @media (max-width: 900px) {
+      .varaus-layout { grid-template-columns: 1fr; }
+      .aikaslotit { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    @media (max-width: 600px) {
+      .varaus-card, .lomake-card { padding: 22px 18px; }
+      .aikaslotit { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <span>Karelia Ulkorakennus Oy</span>
+      Joensuu · Pohjois-Karjala
+    </a>
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Valikko">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Etusivu</a></li>
+      <li class="has-dropdown">
+        <a href="palvelut.html">Palvelut<span class="dropdown-arrow">▼</span></a>
+        <button class="dropdown-toggle-btn" onclick="toggleDropdown(this)" aria-label="Avaa alavalikko">
+          <span class="dropdown-arrow">▼</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="terassit.html">Terassit</a></li>
+          <li><a href="pergolat.html">Pergolat</a></li>
+          <li><a href="piharakennukset.html">Piharakennukset</a></li>
+          <li><a href="aidat.html">Aidat</a></li>
+          <li><a href="piharemontti.html">Piharemontti</a></li>
+        </ul>
+      </li>
+      <li><a href="referenssit.html">Referenssit</a></li>
+      <li><a href="tietoa-meista.html">Tietoa meistä</a></li>
+      <li><a href="palautteet.html">Palautteet</a></li>
+      <li><a href="yhteystiedot.html">Yhteystiedot</a></li> 
+      <li><a href="ajanvaraus.html" class="nav-cta active">Varaa aika</a></li>
+      <!--<li><a href="pyydä-tarjous.html" class="nav-cta active">Pyydä tarjous</a></li>-->
+      <li><a href="materiaalit/materiaalit.html" class="nav-cta">ResQ</a></li>
+      
+    </ul>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <h1>Varaa kartoituskäynti</h1>
+    <p>Valitse sinulle sopiva aika. Varaamme sen sinulle.<br>Voit lähettää myös lomakkeen joka löytyy Yhteystiedot -sivulta.  </p>
+  </div>
+</div>
+
+<main>
+  <section class="section">
+    <div class="container">
+      <div class="varaus-layout">
+
+        <!-- VASEN: Kalenteri + lomake -->
+        <div class="varaus-vasen">
+
+          <!-- Kalenteri -->
+          <div class="varaus-card">
+            <h2>Valitse aika</h2>
+            <p>Alla näet vapaat ajat. Vihreät päivät sisältävät vapaita aikoja.</p>
+
+            <!-- Rooli-valitsin (piilotettu jos vain yksi rooli) -->
+            <div class="rooli-tabs" id="rooliTabs" style="display:none;"></div>
+
+            <!-- Kalenteri -->
+            <div class="kalenteri-otsikko">
+              <button class="kalenteri-nav" id="btnEdellinen" onclick="vaihdaKuukausi(-1)" disabled>‹</button>
+              <h3 id="kuukausiOtsikko"></h3>
+              <button class="kalenteri-nav" id="btnSeuraava" onclick="vaihdaKuukausi(1)">›</button>
+            </div>
+
+            <div class="kalenteri-viikonpaivat">
+              <div class="kalenteri-viikonpaiva">Ma</div>
+              <div class="kalenteri-viikonpaiva">Ti</div>
+              <div class="kalenteri-viikonpaiva">Ke</div>
+              <div class="kalenteri-viikonpaiva">To</div>
+              <div class="kalenteri-viikonpaiva">Pe</div>
+              <div class="kalenteri-viikonpaiva">La</div>
+              <div class="kalenteri-viikonpaiva">Su</div>
+            </div>
+
+            <div class="kalenteri-paivat" id="kalenteriPaivat"></div>
+
+            <!-- Ladataan -->
+            <div class="ladataan" id="ladataan">
+              <div class="spinner"></div>
+              Haetaan vapaita aikoja…
+            </div>
+
+            <!-- Aikaslotit -->
+            <div id="aikaslotitOsio" style="display:none;">
+              <div class="aikaslotit-otsikko" id="aikaslotitOtsikko"></div>
+              <div class="aikaslotit" id="aikaslotit"></div>
+            </div>
+
+            <div class="legenda">
+              <div class="legenda-kohta"><div class="legenda-piste legenda-vapaa"></div>Vapaa aika</div>
+              <div class="legenda-kohta"><div class="legenda-piste legenda-valittu"></div>Valittu</div>
+              <div class="legenda-kohta"><div class="legenda-piste legenda-mennyt"></div>Ei saatavilla</div>
+            </div>
+
+            <!-- Ehdota aikaa -osio -->
+            <div class="ehdota-toggle" id="ehdotaToggle" onclick="toggleEhdota()">
+              <span>📅</span>
+              <span>Sopiva aika ei löydy kalenterista? Ehdota omaa aikaa</span>
+            </div>
+
+            <div class="ehdota-kentat" id="ehdotaKentat">
+              <div class="form-group">
+                <label for="ehdotus_paivamaara">Toivottu päivä</label>
+                <input type="date" id="ehdotus_paivamaara" name="ehdotus_paivamaara" min="">
+              </div>
+              <div class="form-group">
+                <label for="ehdotus_aika">Toivottu aika</label>
+                <select id="ehdotus_aika" name="ehdotus_aika">
+                  <option value="">Valitse...</option>
+                  <option value="aamu">Aamu (8–10)</option>
+                  <option value="aamupaiva">Aamupäivä (10–12)</option>
+                  <option value="iltapaiva">Iltapäivä (12–15)</option>
+                  <option value="myohempi">Myöhäisempi (15–17)</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Lomake -->
+          <div class="lomake-card" id="lomakeKortti">
+
+            <!-- Vahvistusnäkymä (piilotettu aluksi) -->
+            <div class="vahvistus" id="vahvistusNakyma">
+              <div class="vahvistus-ikoni">✅</div>
+              <h2>Varaus vahvistettu!</h2>
+              <div class="vahvistus-kortti" id="vahvistusKortti"></div>
+              <p>Vahvistus on lähetetty sähköpostiisi. Peruutuslinkkiä voidaan käyttää viimeistään 24 tuntia ennen käyntiä.</p>
+              <a href="ajanvaraus.html" class="btn btn-secondary" style="margin-top:16px;">Varaa uusi aika</a>
+            </div>
+
+            <!-- Lomake (näkyvissä aluksi) -->
+            <div id="lomakeSisalto">
+              <h2>Yhteystiedot</h2>
+              <p>Täytä tietosi varauksen vahvistamiseksi.</p>
+
+              <div class="valittu-aika-info" id="valittuAikaInfo">
+                <span>🗓️</span>
+                <span id="valittuAikaTeksti"></span>
+              </div>
+
+              <div class="virhe-viesti" id="virheViesti"></div>
+
+              <form id="varausLomake" onsubmit="lahetaVaraus(event)">
+                <input type="hidden" id="aika_id" name="aika_id" value="">
+                <input type="hidden" id="ehdotus_paivamaara_hidden" name="ehdotus_paivamaara" value="">
+                <input type="hidden" id="ehdotus_aika_hidden" name="ehdotus_aika" value="">
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="etunimi">Etunimi *</label>
+                    <input type="text" id="etunimi" name="etunimi" placeholder="Matti" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="sukunimi">Sukunimi *</label>
+                    <input type="text" id="sukunimi" name="sukunimi" placeholder="Virtanen" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="email">Sähköposti *</label>
+                  <input type="email" id="email" name="email" placeholder="matti@email.fi" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="puhelin">Puhelinnumero *</label>
+                  <input type="tel" id="puhelin" name="puhelin" placeholder="+358 40 123 4567" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="osoite">Kohteen osoite *</label>
+                  <input type="text" id="osoite" name="osoite" placeholder="Esim. Koivukatu 3, Joensuu" required>
+                </div>
+
+                <div class="form-group">
+                  <label>Mistä palvelusta olet kiinnostunut? *</label>
+                  <div class="checkbox-group">
+                    <label class="checkbox-item"><input type="checkbox" name="palvelu[]" value="terassi"> Terassi</label>
+                    <label class="checkbox-item"><input type="checkbox" name="palvelu[]" value="pergola"> Pergola</label>
+                    <label class="checkbox-item"><input type="checkbox" name="palvelu[]" value="piharakennus"> Piharakennus</label>
+                    <label class="checkbox-item"><input type="checkbox" name="palvelu[]" value="aita"> Aita</label>
+                    <label class="checkbox-item"><input type="checkbox" name="palvelu[]" value="piharemontti"> Piharemontti / kokonaisuus</label>
+                    <label class="checkbox-item"><input type="checkbox" name="palvelu[]" value="muu"> Jotain muuta</label>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="checkbox-item" style="font-size:0.8rem; color:var(--color-muted);">
+                    <input type="checkbox" required>
+                    Olen lukenut <a href="tietosuojaseloste.html" style="color:var(--color-primary);">tietosuojaselosteen</a> ja hyväksyn yhteystietojeni käsittelyn.
+                  </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg btn-full" id="lahetaNappi">
+                  Vahvista varaus →
+                </button>
+              </form>
+            </div>
+
+          </div>
+        </div><!-- /varaus-vasen -->
+
+        <!-- OIKEA: Infosivupalkki -->
+        <div class="info-sidebar">
+
+          <div class="info-card">
+            <h4>Näin projekti etenee</h4>
+            <div class="process-steps">
+              <div class="process-step">
+                <div class="step-num">1</div>
+                <div class="step-text">
+                  <strong>Varaa aika</strong>
+                  <span>Valitse sopiva hetki kalenterista</span>
+                </div>
+              </div>
+              <div class="process-step">
+                <div class="step-num">2</div>
+                <div class="step-text">
+                  <strong>Maksuton kartoituskäynti</strong>
+                  <span>Tulemme käymään sovittuna aikana</span>
+                </div>
+              </div>
+              <div class="process-step">
+                <div class="step-num">3</div>
+                <div class="step-text">
+                  <strong>Kirjallinen tarjous</strong>
+                  <span>Toimitamme tarjouksen 3–5 arkipäivässä</span>
+                </div>
+              </div>
+              <div class="process-step">
+                <div class="step-num">4</div>
+                <div class="step-text">
+                  <strong>Sopimus ja aloitus</strong>
+                  <span>Sovitaan aikataulu ja aloitetaan</span>
+                </div>
+              </div>
+              <div class="process-step">
+                <div class="step-num">5</div>
+                <div class="step-text">
+                  <strong>Valmis piha ja takuu</strong>
+                  <span>Loppukatselmus ja 2 vuoden takuu</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <h4>Ota yhteyttä suoraan</h4>
+            <div class="contact-row">
+              <div class="ico">📞</div>
+              <div>
+                <strong>Puhelin</strong>
+                <a href="tel:+358401234567">+358 40 123 4567</a>
+              </div>
+            </div>
+            <div class="contact-row">
+              <div class="ico">✉️</div>
+              <div>
+                <strong>Sähköposti</strong>
+                <a href="mailto:info@kareliarakennusoy.fi">info@kareliarakennusoy.fi</a>
+              </div>
+            </div>
+            <div class="contact-row">
+              <div class="ico">🕐</div>
+              <div>
+                <strong>Palveluaika</strong>
+                <span style="font-size:0.88rem;">Ma–Pe klo 7–17</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-card" style="background: var(--color-primary); color: white;">
+            <h4 style="color:var(--color-accent);">Maksuton ja sitoumukseton</h4>
+            <p style="color:rgba(255,255,255,0.85); font-size:0.88rem; margin:0;">
+              Kartoituskäynti ja tarjous ovat täysin maksuttomia, eikä se velvoita sinua mihinkään.
+            </p>
+          </div>
+
+          <div class="info-card">
+            <h4>Peruutuskäytäntö</h4>
+            <p style="font-size:0.85rem; color:var(--color-muted); margin:0;">
+              Varauksesi voidaan perua vähintään <strong>24 tuntia</strong> ennen käyntiä.
+              Peruutuslinkki lähetetään vahvistusviestissä.
+            </p>
+          </div>
+
+        </div><!-- /info-sidebar -->
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<!--#include file="footer.shtml" -->
+
+<script>
+// ============================================================
+//  Ajanvarauskalenteri — JavaScript
+// ============================================================
+
+const KUUKAUDET = ['Tammikuu','Helmikuu','Maaliskuu','Huhtikuu','Toukokuu','Kesäkuu',
+                   'Heinäkuu','Elokuu','Syyskuu','Lokakuu','Marraskuu','Joulukuu'];
+const VIIKONPAIVAT_FI = ['Ma','Ti','Ke','To','Pe','La','Su'];
+
+let tama_paiva       = new Date();
+let nyt_vuosi        = tama_paiva.getFullYear();
+let nyt_kuukausi     = tama_paiva.getMonth(); // 0-pohjainen
+let valittu_paiva    = null;
+let valittu_aika_id  = null;
+let valittu_rooli_id = null;
+let roolit_data      = [];
+let vapaat_ajat      = {}; // { "2025-07-14": [{id, alkuaika, loppuaika}, ...], ... }
+let ehdota_auki      = false;
+
+// --- Alustus ---
+window.addEventListener('DOMContentLoaded', async () => {
+  document.getElementById('ehdotus_paivamaara').min = paivaTanaan();
+  await haeRoolit();
+});
+
+async function haeRoolit() {
+  try {
+    const resp = await fetch('hae-ajat.php?toiminto=roolit');
+    const data = await resp.json();
+    roolit_data = data.roolit || [];
+
+    const tabsEl = document.getElementById('rooliTabs');
+    if (roolit_data.length > 1) {
+      tabsEl.style.display = 'flex';
+      roolit_data.forEach((r, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'rooli-tab' + (i === 0 ? ' aktiivinen' : '');
+        btn.textContent = r.nimi;
+        btn.onclick = () => valitseRooli(r.id, btn);
+        tabsEl.appendChild(btn);
+      });
+    }
+
+    if (roolit_data.length > 0) {
+      valittu_rooli_id = roolit_data[0].id;
+      await haeVapaatAjat();
+    }
+
+    piirraKalenteri();
+  } catch (e) {
+    console.error('Roolien haku epäonnistui:', e);
+  }
+}
+
+function valitseRooli(rooli_id, btn) {
+  valittu_rooli_id = rooli_id;
+  valittu_paiva    = null;
+  valittu_aika_id  = null;
+  document.querySelectorAll('.rooli-tab').forEach(b => b.classList.remove('aktiivinen'));
+  btn.classList.add('aktiivinen');
+  document.getElementById('aikaslotitOsio').style.display = 'none';
+  paivitaValittuAikaInfo(null);
+  haeVapaatAjat();
+}
+
+async function haeVapaatAjat() {
+  if (!valittu_rooli_id) return;
+  naytaLadataan(true);
+
+  const vuosi    = nyt_vuosi;
+  const kuukausi = nyt_kuukausi + 1; // PHP odottaa 1-pohjaista
+
+  try {
+    const resp = await fetch(`hae-ajat.php?toiminto=ajat&rooli_id=${valittu_rooli_id}&vuosi=${vuosi}&kuukausi=${kuukausi}`);
+    const data = await resp.json();
+    vapaat_ajat = data.ajat || {};
+    piirraKalenteri();
+  } catch (e) {
+    console.error('Aikojen haku epäonnistui:', e);
+  } finally {
+    naytaLadataan(false);
+  }
+}
+
+function naytaLadataan(nakyvissa) {
+  document.getElementById('ladataan').style.display = nakyvissa ? 'block' : 'none';
+  document.getElementById('kalenteriPaivat').style.display = nakyvissa ? 'none' : 'grid';
+}
+
+function piirraKalenteri() {
+  const otsikko = document.getElementById('kuukausiOtsikko');
+  otsikko.textContent = KUUKAUDET[nyt_kuukausi] + ' ' + nyt_vuosi;
+
+  // Edellinen kuukausi -nappi: ei saa mennä menneisyyteen
+  const tanaan = new Date(tama_paiva.getFullYear(), tama_paiva.getMonth(), 1);
+  const nykyinen = new Date(nyt_vuosi, nyt_kuukausi, 1);
+  document.getElementById('btnEdellinen').disabled = nykyinen <= tanaan;
+
+  const grid = document.getElementById('kalenteriPaivat');
+  grid.innerHTML = '';
+
+  // Kuukauden 1. päivän viikonpäivä (muunna Ma=0 pohjaiseksi)
+  const ensimmainenPv = new Date(nyt_vuosi, nyt_kuukausi, 1);
+  let aloitusKolumni  = ensimmainenPv.getDay(); // 0=Su, 1=Ma...
+  aloitusKolumni      = aloitusKolumni === 0 ? 6 : aloitusKolumni - 1; // Ma=0
+
+  const paiviaKuussa  = new Date(nyt_vuosi, nyt_kuukausi + 1, 0).getDate();
+
+  // Täytä tyhjiä alkuun
+  for (let i = 0; i < aloitusKolumni; i++) {
+    const div = document.createElement('div');
+    div.className = 'kalenteri-paiva tyhja';
+    grid.appendChild(div);
+  }
+
+  for (let p = 1; p <= paiviaKuussa; p++) {
+    const pvStr  = `${nyt_vuosi}-${String(nyt_kuukausi + 1).padStart(2,'0')}-${String(p).padStart(2,'0')}`;
+    const pvDate = new Date(nyt_vuosi, nyt_kuukausi, p);
+    const tanaan_vain_pvm = new Date(tama_paiva.getFullYear(), tama_paiva.getMonth(), tama_paiva.getDate());
+
+    const div = document.createElement('div');
+    div.className = 'kalenteri-paiva';
+    div.textContent = p;
+
+    if (pvDate < tanaan_vain_pvm) {
+      div.classList.add('mennyt');
+    } else {
+      const onVapaa = vapaat_ajat[pvStr] && vapaat_ajat[pvStr].length > 0;
+      if (onVapaa) div.classList.add('vapaa');
+      if (pvDate.getTime() === tanaan_vain_pvm.getTime()) div.classList.add('taanaan');
+
+      if (valittu_paiva === pvStr) div.classList.add('valittu');
+
+      if (onVapaa) {
+        div.onclick = () => valitsePaiva(pvStr);
+      }
+    }
+
+    grid.appendChild(div);
+  }
+}
+
+function valitsePaiva(pvStr) {
+  valittu_paiva   = pvStr;
+  valittu_aika_id = null;
+  piirraKalenteri();
+  naytaAikaslotit(pvStr);
+  paivitaValittuAikaInfo(null);
+}
+
+function naytaAikaslotit(pvStr) {
+  const osio   = document.getElementById('aikaslotitOsio');
+  const grid   = document.getElementById('aikaslotit');
+  const otsikko = document.getElementById('aikaslotitOtsikko');
+  grid.innerHTML = '';
+
+  const ajat = vapaat_ajat[pvStr] || [];
+
+  if (ajat.length === 0) {
+    grid.innerHTML = '<div class="ei-aikoja" style="grid-column:1/-1;">Ei vapaita aikoja tälle päivälle.</div>';
+  } else {
+    const parts = pvStr.split('-');
+    const pvDate = new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
+    const vpNimet = ['Sunnuntai','Maanantai','Tiistai','Keskiviikko','Torstai','Perjantai','Lauantai'];
+    const pvNimi  = vpNimet[pvDate.getDay()];
+    otsikko.textContent = pvNimi + ' ' + parseInt(parts[2]) + '.' + parseInt(parts[1]) + '.';
+
+    ajat.forEach(a => {
+      const btn = document.createElement('button');
+      btn.className = 'aikaslotin-nappi' + (valittu_aika_id == a.id ? ' valittu' : '');
+      btn.textContent = a.alkuaika.slice(0,5);
+      btn.type = 'button';
+      btn.onclick = () => valitseAika(a, pvStr, btn);
+      grid.appendChild(btn);
+    });
+  }
+
+  osio.style.display = 'block';
+  // Skrollataan lomakkeelle mobiilissa
+  if (window.innerWidth < 700) {
+    setTimeout(() => {
+      document.getElementById('lomakeKortti').scrollIntoView({behavior:'smooth', block:'start'});
+    }, 100);
+  }
+}
+
+function valitseAika(aika, pvStr, btn) {
+  valittu_aika_id = aika.id;
+  document.querySelectorAll('.aikaslotin-nappi').forEach(b => b.classList.remove('valittu'));
+  btn.classList.add('valittu');
+
+  document.getElementById('aika_id').value = aika.id;
+
+  const parts = pvStr.split('-');
+  const pvDate = new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
+  const vpNimet = ['Sunnuntai','Maanantai','Tiistai','Keskiviikko','Torstai','Perjantai','Lauantai'];
+  const pvNimi  = vpNimet[pvDate.getDay()];
+  const alku  = aika.alkuaika.slice(0,5);
+  const loppu = aika.loppuaika.slice(0,5);
+  const teksti = `${pvNimi} ${parseInt(parts[2])}.${parseInt(parts[1])}.${parts[0]} klo ${alku}–${loppu}`;
+
+  paivitaValittuAikaInfo(teksti);
+}
+
+function paivitaValittuAikaInfo(teksti) {
+  const el = document.getElementById('valittuAikaInfo');
+  const txt = document.getElementById('valittuAikaTeksti');
+  if (teksti) {
+    txt.textContent = teksti;
+    el.classList.add('nakyvissa');
+  } else {
+    el.classList.remove('nakyvissa');
+  }
+}
+
+function vaihdaKuukausi(suunta) {
+  nyt_kuukausi += suunta;
+  if (nyt_kuukausi < 0) { nyt_kuukausi = 11; nyt_vuosi--; }
+  if (nyt_kuukausi > 11) { nyt_kuukausi = 0; nyt_vuosi++; }
+  valittu_paiva = null;
+  valittu_aika_id = null;
+  document.getElementById('aikaslotitOsio').style.display = 'none';
+  paivitaValittuAikaInfo(null);
+  document.getElementById('aika_id').value = '';
+  haeVapaatAjat();
+}
+
+function toggleEhdota() {
+  ehdota_auki = !ehdota_auki;
+  document.getElementById('ehdotaToggle').classList.toggle('aktiivinen', ehdota_auki);
+  document.getElementById('ehdotaKentat').classList.toggle('nakyvissa', ehdota_auki);
+}
+
+  
+  
+async function lahetaVaraus(event) {
+  event.preventDefault();
+
+  const aikaid  = document.getElementById('aika_id').value;
+  const ehdPvm  = document.getElementById('ehdotus_paivamaara').value;
+  const ehdAika = document.getElementById('ehdotus_aika').value;
+
+  if (!aikaid && !(ehdPvm && ehdAika)) {
+    naytaVirhe('Valitse aika kalenterista tai ehdota omaa aikaa.');
+    return;
+  }
+
+  // Näytä vahvistusmodaali
+  const aikateksti = document.getElementById('valittuAikaTeksti').textContent
+    || (ehdPvm ? `${ehdPvm} (${ehdAika})` : '');
+  document.getElementById('modaaliAika').textContent = aikateksti;
+  document.getElementById('modaaliTausta').classList.add('nakyvissa');
+}
+
+async function vahvistaModaalista() {
+  suljeModaali();
+
+  document.getElementById('ehdotus_paivamaara_hidden').value = document.getElementById('ehdotus_paivamaara').value;
+  document.getElementById('ehdotus_aika_hidden').value       = document.getElementById('ehdotus_aika').value;
+
+  const nappi = document.getElementById('lahetaNappi');
+  nappi.disabled = true;
+  nappi.textContent = 'Lähetetään…';
+  piilotaVirhe();
+
+  try {
+    const formData = new FormData(document.getElementById('varausLomake'));
+    const resp     = await fetch('varaus.php', { method: 'POST', body: formData });
+    const data     = await resp.json();
+
+    if (data.ok) {
+      naytaVahvistus(data);
+    } else {
+      naytaVirhe(data.virhe || 'Tapahtui virhe. Yritä uudelleen.');
+      nappi.disabled = false;
+      nappi.textContent = 'Vahvista varaus →';
+    }
+  } catch (e) {
+    naytaVirhe('Verkkovirhe. Tarkista yhteys ja yritä uudelleen.');
+    nappi.disabled = false;
+    nappi.textContent = 'Vahvista varaus →';
+  }
+}
+
+function suljeModaali(event) {
+  // Suljetaan vain jos klikataan taustaa (ei laatikkoa)
+  if (event && event.target !== document.getElementById('modaaliTausta')) return;
+  document.getElementById('modaaliTausta').classList.remove('nakyvissa');
+}
+  
+function naytaVahvistus(data) {
+  document.getElementById('lomakeSisalto').style.display = 'none';
+  const vahvistus = document.getElementById('vahvistusNakyma');
+  vahvistus.classList.add('nakyvissa');
+
+  // Käytetään jo oikein muodostettua tekstiä lomakkeen yläreunasta
+  const aikateksti = document.getElementById('valittuAikaTeksti').textContent;
+  
+  const kortti = document.getElementById('vahvistusKortti');
+  kortti.innerHTML = `
+    <strong>Aika</strong>
+	<div class="arvo">${aikateksti || data.pvm || ''}</div>
+    <strong>Sähköpostiisi on lähetetty vahvistus ja peruutuslinkki</strong>
+  `;
+
+  vahvistus.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function naytaVirhe(viesti) {
+  const el = document.getElementById('virheViesti');
+  el.textContent = viesti;
+  el.classList.add('nakyvissa');
+  el.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function piilotaVirhe() {
+  document.getElementById('virheViesti').classList.remove('nakyvissa');
+}
+
+function paivaTanaan() {
+  return tama_paiva.toISOString().split('T')[0];
+}
+
+// Navigaatioavustajat (sama kuin muilla sivuilla)
+function toggleNav() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+function toggleDropdown(btn) {
+  btn.closest('li').classList.toggle('open');
+}
+</script>
+  
+<!-- Vahvistusmodaali -->
+<div class="modaali-tausta" id="modaaliTausta" onclick="suljeModaali(event)">
+  <div class="modaali-laatikko">
+    <div class="modaali-ikoni">🗓️</div>
+    <h3>Vahvistetaanko varaus?</h3>
+    <p style="color:var(--color-muted); font-size:0.9rem;">Olet varaamassa ajan</p>
+    <div class="modaali-aika" id="modaaliAika"></div>
+    <div class="modaali-napit">
+      <button class="btn btn-secondary" onclick="suljeModaali()">Peruuta</button>
+      <button class="btn btn-primary" id="modaaliVahvistaNappi" onclick="vahvistaModaalista()">Vahvista →</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

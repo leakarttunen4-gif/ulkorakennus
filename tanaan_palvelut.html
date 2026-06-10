@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Karelia Ulkorakennus Oy">
+  <meta name="robots" content="index, follow">
+  <title>Palvelut – Karelia Ulkorakennus Oy</title>
+  <meta name="description" content="Terassit, pergolat, piharakennukset, aidat ja piharemontti Joensuussa. Laadukas toteutus ja kestävät materiaalit.">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Palvelukorttien ruudukko */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 48px;
+    }
+
+    .service-card {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.2s, transform 0.2s;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .service-card:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-3px);
+    }
+
+    .service-card-image {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      display: block;
+    }
+
+    .service-card-body {
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .service-card-body h2 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+
+    .service-card-body p {
+      color: var(--color-muted);
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+
+    .service-card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+
+    .service-card-link::after {
+      content: "→";
+      transition: transform 0.2s;
+    }
+
+    .service-card:hover .service-card-link::after {
+      transform: translateX(4px);
+    }
+
+    /* Viides kortti: span 2 tai center viimeinen rivi */
+    .services-grid .service-card:last-child:nth-child(3n - 1) {
+      grid-column: span 1;
+    }
+
+    /* Nav dropdown */
+    .nav-links li.has-dropdown { position: relative; }
+    .nav-links li.has-dropdown > a { display: flex; align-items: center; gap: 5px; }
+    .nav-links li.has-dropdown > a .dropdown-arrow { display: inline-block; font-size: 0.65rem; transition: transform 0.25s ease; line-height: 1; margin-top: 1px; }
+    .dropdown-menu { display: none; position: absolute; top: calc(100% + 8px); left: 0; background: var(--color-white); border-radius: var(--radius-lg); box-shadow: 0 8px 32px rgba(0,0,0,0.13); min-width: 210px; z-index: 200; padding: 8px 0; border-top: 3px solid var(--color-primary); }
+    .dropdown-menu li { list-style: none; }
+    .dropdown-menu li a { display: block; padding: 10px 20px; font-size: 0.9rem; color: var(--color-text); white-space: nowrap; transition: background 0.15s, color 0.15s; }
+    .dropdown-menu li a:hover { background: var(--color-bg); color: var(--color-primary); }
+    @media (min-width: 801px) { .nav-links li.has-dropdown:hover .dropdown-menu { display: block; } .nav-links li.has-dropdown:hover > a .dropdown-arrow { transform: rotate(180deg); } .dropdown-toggle-btn { display: none; } }
+    @media (max-width: 800px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .dropdown-toggle-btn { background: none; border: none; cursor: pointer; padding: 0 12px; font-size: 1rem; color: var(--color-text); display: flex; align-items: center; line-height: 1; }
+      .nav-links li.has-dropdown { display: flex; flex-wrap: wrap; align-items: center; }
+      .nav-links li.has-dropdown > a { flex: 1; }
+      .dropdown-menu { position: static; box-shadow: none; border-radius: 0; border-top: none; border-left: 3px solid var(--color-primary); width: 100%; padding: 4px 0 4px 8px; background: var(--color-bg); }
+      .dropdown-menu li a { padding: 8px 16px; }
+      .nav-links li.has-dropdown.open .dropdown-menu { display: block; }
+      .nav-links li.has-dropdown.open > .dropdown-toggle-btn .dropdown-arrow { transform: rotate(180deg); }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <span>Karelia Ulkorakennus Oy</span>
+      Joensuu · Pohjois-Karjala
+    </a>
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Valikko">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Etusivu</a></li>
+      <li class="has-dropdown">
+       !--  <a href="palvelut.html" class="active">Palvelut</a><span class="dropdown-arrow">▼</span> -->
+        <a href="palvelut.html" class="active">Palvelut<span class="dropdown-arrow">▼</span></a>
+        <button class="dropdown-toggle-btn" onclick="toggleDropdown(this)" aria-label="Avaa alavalikko">
+          <span class="dropdown-arrow">▼</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="terassit.html">Terassit</a></li>
+          <li><a href="pergolat.html">Pergolat</a></li>
+          <li><a href="piharakennukset.html">Piharakennukset</a></li>
+          <li><a href="aidat.html">Aidat</a></li>
+          <li><a href="piharemontti.html">Piharemontti</a></li>
+        </ul>
+      </li>
+      <li><a href="referenssit.html">Referenssit</a></li>
+      <li><a href="tietoa-meista.html">Tietoa meistä</a></li>
+      <li><a href="palautteet.html">Palautteet</a></li>
+      <li><a href="yhteystiedot.html">Yhteystiedot</a></li>
+      <li><a href="pyydä-tarjous.html" class="nav-cta">Pyydä tarjous</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+<div class="page-hero">
+  <div class="container">
+    <h1>Palvelumme</h1>
+    <p>Toteutamme kaikki ulkorakentamisen projektit — pienestä aitaremontista laajaan pihakokonaisuuteen. Valitse palvelu alta ja lue lisää.</p>
+  </div>
+</div>
+
+
+<main>
+  <section class="section">
+    <div class="container">
+      <div class="services-grid">
+
+        <a href="terassit.html" class="service-card">
+          <img src="images/palvelut_terassi.webp" alt="Puusta tehty ulkoterassi" class="service-card-image" loading="lazy">
+          <div class="service-card-body">
+            <h2>Terassit</h2>
+            <p>Terassilla lisää asumisneliöitä. Painekyllästetty puu, lämpöpuu tai komposiitti — aina asiakkaan mittojen mukaan.</p>
+            <span class="service-card-link">Lue lisää terasseista</span>
+          </div>
+        </a>
+
+        <a href="pergolat.html" class="service-card">
+          <img src="images/palvelut_pergola.webp" alt="Puusta tehty pergola" class="service-card-image" loading="lazy">
+          <div class="service-card-body">
+            <h2>Pergolat</h2>
+            <p>Pergola luo pihalle oleskelutilan, varjostusta ja ilmettä. Perinteiset ja modernit mallit, yhdistettävissä terassiin.</p>
+            <span class="service-card-link">Lue lisää pergoloista</span>
+          </div>
+        </a>
+
+        <a href="piharakennukset.html" class="service-card">
+          <img src="images/palvelut_pihasauna.webp" alt="Pihasauna pienellä terassilla" class="service-card-image" loading="lazy">
+          <div class="service-card-body">
+            <h2>Piharakennukset</h2>
+            <p>Aitta, varasto, leikkimökki, pihasauna tai autokatos — kaikki piharakennukset kestävistä materiaaleista.</p>
+            <span class="service-card-link">Lue lisää piharakennuksista</span>
+          </div>
+        </a>
+
+        <a href="aidat.html" class="service-card">
+          <img src="images/palvelut_aita.webp" alt="Puinen piha-aita" class="service-card-image" loading="lazy">
+          <div class="service-card-body">
+            <h2>Aidat</h2>
+            <p>Klassisista pystyrimaaidoista moderneihin vaakalistarakenteisiin. Portit ja kulkuaukot samalla kertaa.</p>
+            <span class="service-card-link">Lue lisää aidoista</span>
+          </div>
+        </a>
+
+        <a href="piharemontti.html" class="service-card">
+          <img src="images/palvelut_remontti.webp" alt="Piharemontti käynnissä" class="service-card-image" loading="lazy">
+          <div class="service-card-body">
+            <h2>Piharemontti</h2>
+            <p>Maksuton kartoituskäynti, suunnittelu ja avaimet käteen -toteutus. Yhdestä elementistä koko pihan uudistukseen.</p>
+            <span class="service-card-link">Lue lisää piharemontista</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  
+
+
+  
+  <section class="section" style="background: var(--color-primary); text-align:center;">
+    <div class="container">
+      <h2 style="color:white; margin-bottom:12px;">Kiinnostuitko? Pyydä maksuton tarjous.</h2>
+      <p style="color:rgba(255,255,255,0.75); margin-bottom:32px; max-width:480px; margin-left:auto; margin-right:auto;">Käymme pihallasi maksutta arvioimassa työn laajuuden ja toimitamme tarjouksen ilman sitoumuksia.</p>
+      <a href="pyydä-tarjous.html" class="btn btn-primary btn-lg">Pyydä maksuton tarjous</a>
+    </div>
+  </section>
+</main>
+
+
+
+<!--#include file="footer.shtml"-->
+
+
+  
+<script>
+  function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
+  function toggleDropdown(btn) { btn.closest('li').classList.toggle('open'); }
+</script>
+</body>
+</html>

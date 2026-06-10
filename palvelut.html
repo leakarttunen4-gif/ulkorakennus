@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Karelia Ulkorakennus Oy">
+  <meta name="robots" content="index, follow">
+  <title>Palvelut – Karelia Ulkorakennus Oy</title>
+  <meta name="description" content="Terassit, pergolat, piharakennukset, aidat ja piharemontti Joensuussa. Laadukas toteutus ja kestävät materiaalit.">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Palvelulinkit */
+    .service-links {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 48px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .service-link-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 28px;
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      text-decoration: none;
+      color: var(--color-text);
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: box-shadow 0.2s, transform 0.2s, color 0.2s;
+      border-left: 4px solid var(--color-primary);
+    }
+
+    .service-link-item:hover {
+      box-shadow: var(--shadow);
+      transform: translateX(4px);
+      color: var(--color-primary);
+    }
+
+    .service-link-item .arrow {
+      font-size: 1.1rem;
+      transition: transform 0.2s;
+    }
+
+    .service-link-item:hover .arrow {
+      transform: translateX(4px);
+    }
+
+         
+  </style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <span>Karelia Ulkorakennus Oy</span>
+      Joensuu · Pohjois-Karjala
+    </a>
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Valikko">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Etusivu</a></li>
+      <li class="has-dropdown">
+        <a href="palvelut.html" class="active">Palvelut <span class="dropdown-arrow">▼</span></a>
+        <button class="dropdown-toggle-btn" onclick="toggleDropdown(this)" aria-label="Avaa alavalikko">
+          <span class="dropdown-arrow">▼</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="terassit.html">Terassit</a></li>
+          <li><a href="pergolat.html">Pergolat</a></li>
+          <li><a href="piharakennukset.html">Piharakennukset</a></li>
+          <li><a href="aidat.html">Aidat</a></li>
+          <li><a href="piharemontti.html">Piharemontti</a></li>
+        </ul>
+      </li>
+      <li><a href="referenssit.html">Referenssit</a></li>
+      <li><a href="tietoa-meista.html">Tietoa meistä</a></li>
+      <li><a href="palautteet.html">Palautteet</a></li>
+      <li><a href="yhteystiedot.html">Yhteystiedot</a></li>
+      <li><a href="ajanvaraus.html" class="nav-cta">Varaa aika</a></li>
+      <!--<li><a href="pyydä-tarjous.html" class="nav-cta">Pyydä tarjous</a></li>-->
+      <li><a href="materiaalit/materiaalit.html" class="nav-cta">ResQ</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <h1>Palvelumme</h1>
+    <p>Toteutamme kaikki ulkorakentamisen projektit — pienestä aitaremontista laajaan pihakokonaisuuteen.</p>
+  </div>
+</div>
+
+<main>
+  <section class="section">
+    <div class="container">
+      <div class="service-links">
+        <a href="terassit.html" class="service-link-item">Terassit <span class="arrow">→</span></a>
+        <a href="pergolat.html" class="service-link-item">Pergolat <span class="arrow">→</span></a>
+        <a href="piharakennukset.html" class="service-link-item">Piharakennukset <span class="arrow">→</span></a>
+        <a href="aidat.html" class="service-link-item">Aidat <span class="arrow">→</span></a>
+        <a href="piharemontti.html" class="service-link-item">Piharemontti <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background: var(--color-primary); text-align:center;">
+    <div class="container">
+      <h2 style="color:white; margin-bottom:12px;">Kiinnostuitko? Varaa kartoituskäynti.</h2>
+      <p style="color:rgba(255,255,255,0.75); margin-bottom:32px; max-width:480px; margin-left:auto; margin-right:auto;">Käymme pihallasi maksutta arvioimassa työn laajuuden ja toimitamme tarjouksen ilman sitoumuksia.</p>
+      <!--<a href="pyydä-tarjous.html" class="btn btn-primary btn-lg">Pyydä tarjous</a>-->
+      <a href="ajanvaraus.html" class="btn btn-primary btn-lg">Varaa kartoituskäynti</a>
+    </div>
+  </section>
+</main>
+
+<!--#include file="footer.shtml"-->
+
+<script>
+  function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
+  function toggleDropdown(btn) { btn.closest('li').classList.toggle('open'); }
+</script>
+</body>
+</html>

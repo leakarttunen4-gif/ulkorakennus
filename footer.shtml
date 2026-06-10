@@ -1,0 +1,67 @@
+<!-- sivulle #include file="footer.shtml"-->
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">Karelia Ulkorakennus Oy</a>
+        <p>Paikallinen ulkorakentamisen ammattilainen Joensuussa ja Pohjois-Karjalassa. Terassit, pergolat, piharakennukset ja aidat.</p>
+        <div class="social-links">
+          <a href="https://facebook.com/" class="social-link" aria-label="Facebook" target="_blank" rel="noopener">f</a>
+          <a href="https://instagram.com/" class="social-link" aria-label="Instagram" target="_blank" rel="noopener">📷</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h5>Palvelut</h5>
+        <ul>
+          <li><a href="palvelut.html#terassit">Terassit</a></li>
+          <li><a href="palvelut.html#pergolat">Pergolat</a></li>
+          <li><a href="palvelut.html#piharakennukset">Piharakennukset</a></li>
+          <li><a href="palvelut.html#aidat">Aidat</a></li>
+          <li><a href="palvelut.html#piharemontti">Piharemontti</a></li>
+          <li><a href="palvelut.html#materiaalit">Materiaalit</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Yritys</h5>
+        <ul>
+          <li><a href="tietoa-meista.html">Tietoa meistä</a></li>
+          <li><a href="referenssit.html">Referenssit</a></li>
+          <li><a href="palautteet.html">Asiakaspalautteet</a></li>
+          <li><a href="palautteet.html#faq">FAQ</a></li>
+          <li><a href="yhteystiedot.html">Yhteystiedot</a></li>
+          <li><a href="ajanvaraus.html">Varaa aika</a></li>
+          <li><a href="pyydä-tarjous.html">Pyydä tarjous</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Yhteystiedot</h5>
+        <address>
+          Karelia Ulkorakennus Oy<br>
+          Y-tunnus: 1234567-8<br>
+          Raatekankaantie 13<br>
+          Joensuu, Pohjois-Karjala<br>
+          <br>
+          <a href="tel:+358401234567">+358 40 123 4567</a><br>
+          <a href="mailto:info@kareliarakennusoy.fi">info@kareliarakennusoy.fi</a><br>
+          Toimisto avoinna:
+          <br>
+          Ma–Pe klo 7–17
+        </address>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; width:100%;">
+      <p>© <!--#config timefmt="%Y" --><!--#echo var="DATE_LOCAL" -->
+      Karelia Ulkorakennus Oy. Kaikki oikeudet pidätetään.</p>
+      <a href="tietosuojaseloste.html">Tietosuojaseloste</a>
+    </div>
+  </div>
+</footer>

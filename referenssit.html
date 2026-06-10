@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Karelia Ulkorakennus Oy">
+  <meta name="robots" content="index, follow">
+  <title>Referenssit – Karelia Ulkorakennus Oy</title>
+  <meta name="description" content="Katso Karelia Ulkorakennus Oy:n toteutettuja projekteja — terasseja, pergoloita, piharakennuksia ja aitoja Pohjois-Karjalassa.">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Suodatinpainikkeet */
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .filter-btn {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 8px 18px;
+      border-radius: 20px;
+      border: 1.5px solid var(--color-border);
+      background: var(--color-white);
+      color: var(--color-muted);
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+
+    .filter-btn:hover { border-color: var(--color-primary); color: var(--color-primary); }
+    .filter-btn.active { background: var(--color-primary); color: var(--color-white); border-color: var(--color-primary); }
+
+    /* Referenssi-kortit */
+     .ref-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    } 
+    
+     
+    
+    .ref-card {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .ref-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+
+    .ref-card-img {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      position: relative;
+    }
+
+    .ref-card-cat {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+    }
+
+    .ref-card figure {
+  		margin: 0;
+  		height: 200px;
+  		overflow: hidden;
+	}
+
+	.ref-card figure img {
+  		width: 100%;
+  		height: 100%;
+  		object-fit: cover;
+	}
+    
+    .ref-card-body { padding: 20px 22px 22px; }
+    .ref-card-body h3 { font-size: 1.05rem; margin-bottom: 6px; }
+    .ref-card-body .meta { font-size: 0.78rem; color: var(--color-muted); margin-bottom: 10px; display: flex; gap: 12px; }
+    .ref-card-body p { font-size: 0.85rem; color: var(--color-muted); line-height: 1.55; }
+
+    /* Ennen/jälkeen -kortti */
+    .before-after {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      margin-top: 56px;
+    }
+
+    .ba-header {
+      padding: 28px 32px 0;
+    }
+
+    .ba-header h4 { margin-bottom: 8px; }
+    .ba-header h2 { margin-bottom: 8px; font-size: 1.5rem; }
+    .ba-header p { color: var(--color-muted); font-size: 0.9rem; }
+
+    .ba-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin-top: 24px;
+    }
+
+    .ba-img {
+      height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      position: relative;
+    }
+
+    .ba-img-label {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 2px;
+    }
+
+    .ba-before { background: #c5baa8; }
+    .ba-after  { background: linear-gradient(135deg, #3a5c3a, #2D4A2D); }
+
+    .ba-details {
+      padding: 24px 32px 32px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .ba-stat strong { display: block; font-size: 1.2rem; font-family: var(--font-heading); color: var(--color-primary); margin-bottom: 2px; }
+    .ba-stat span { font-size: 0.78rem; color: var(--color-muted); }
+     
+    .gallery-item figure {
+  	  border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      margin: 0;
+      aspect-ratio: 4 / 3;
+    } 
+     
+    .gallery-item figure img {
+  	  width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+	}
+    
+    .gallery-item {
+  	  position: relative;
+  	  overflow: hidden; 
+      aspect-ratio: 4 / 3; 
+	} 
+
+	.gallery-item-label {
+  	  position: absolute;
+  	  bottom: 0;
+  	  left: 0;
+  	  right: 0;
+  	  padding: 10px 14px;
+  	  background: rgba(0, 0, 0, 0.55);
+  	  color: white;
+  	  font-size: 0.82rem;
+  	  font-weight: 600;
+  	  opacity: 0;
+  	  transition: opacity 0.2s;
+	}
+
+	.gallery-item:hover .gallery-item-label {
+  	  opacity: 1;
+	}
+
+
+    @media (max-width: 900px) {
+      .ref-grid { grid-template-columns: 1fr 1fr; }
+      .ba-details { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .ref-grid { grid-template-columns: 1fr; }
+      .ba-images { grid-template-columns: 1fr; }
+      .ba-details { grid-template-columns: 1fr 1fr; }
+    }
+    
+     
+
+  </style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <span>Karelia Ulkorakennus Oy</span>
+      Joensuu · Pohjois-Karjala
+    </a>
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Valikko">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Etusivu</a></li> 
+      <li class="has-dropdown">
+        <a href="palvelut.html">Palvelut<span class="dropdown-arrow">▼</span></a>
+        <button class="dropdown-toggle-btn" onclick="toggleDropdown(this)" aria-label="Avaa alavalikko">
+          <span class="dropdown-arrow">▼</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="terassit.html">Terassit</a></li>
+          <li><a href="pergolat.html">Pergolat</a></li>
+          <li><a href="piharakennukset.html">Piharakennukset</a></li>
+          <li><a href="aidat.html">Aidat</a></li>
+          <li><a href="piharemontti.html">Piharemontti</a></li>
+        </ul>
+       </li>
+     
+      <li><a href="referenssit.html" class="active">Referenssit</a></li>
+      <li><a href="tietoa-meista.html">Tietoa meistä</a></li>
+      <li><a href="palautteet.html">Palautteet</a></li>
+      <li><a href="yhteystiedot.html">Yhteystiedot</a></li>
+      <li><a href="ajanvaraus.html" class="nav-cta">Varaa aika</a></li>
+      <!-- <li><a href="pyydä-tarjous.html" class="nav-cta">Pyydä tarjous</a></li> -->
+      <li><a href="materiaalit/materiaalit.html" class="nav-cta">ResQ</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- <nav class="breadcrumb">
+  <div class="container">
+    <ol>
+      <li><a href="index.html">Etusivu</a></li>
+      <li>Referenssit</li>
+    </ol>
+  </div>
+</nav> -->
+
+<div class="page-hero">
+  <div class="container">
+    <!-- <h4>Toteutetut projektit</h4> -->
+    <h1>Referenssit</h1>
+    <p>Katsele toteutettuja projektejamme — <br> terasseja, pergoloita, piharakennuksia ja aitoja.</p>
+  </div>
+</div>
+
+<main>
+  <section class="section">
+    <div class="container">
+
+      <!-- SUODATTIMET -->
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterProjects('kaikki', this)">Kaikki</button>
+        <button class="filter-btn" onclick="filterProjects('terassi', this)">Terassit</button>
+        <button class="filter-btn" onclick="filterProjects('pergola', this)">Pergolat</button>
+        <button class="filter-btn" onclick="filterProjects('piharakennus', this)">Piharakennukset</button>
+        <button class="filter-btn" onclick="filterProjects('aita', this)">Aidat</button>
+        <button class="filter-btn" onclick="filterProjects('piharemontti', this)">Piharemontti</button>
+      </div>
+
+      <!-- KORTTIRUUDUKKO -->
+      <div class="ref-grid" id="refGrid">
+
+        <div class="ref-card" data-cat="terassi">
+           <figure>
+      		<img src="images/referenssit_terassi.webp" alt="Lämpöpuusta tehty terassi kaiteella" loading="lazy"> 
+    	   </figure>
+          <!-- <div class="ref-card-img" style="background: linear-gradient(135deg, #c8a060, #8B5E3C);">
+            🪵
+            <span class="ref-card-cat"><span class="badge badge-accent">Terassi</span></span>
+          </div> -->
+          <div class="ref-card-body">
+            <h3>Lämpöpuuterassi, Joensuu</h3>
+            <div class="meta"><span>📍 Joensuu, kerrostalo</span><span>📅 Kesä 2024</span></div>
+            <p>42 m² lämpöpuuterassi kaiteella. Suunnittelu ja toteutus kolmessa viikossa.</p>
+          </div>
+        </div>
+
+        <div class="ref-card" data-cat="pergola">
+           <figure>
+      		<img src="images/referenssit_pergola.webp" alt="Erillinen pergola omakotitalon pihalla" loading="lazy"> 
+    	   </figure>
+          <!-- <div class="ref-card-img" style="background: linear-gradient(135deg, #3a5c3a, #2D4A2D);">
+            🏛️
+            <span class="ref-card-cat"><span class="badge badge-primary">Pergola</span></span>
+          </div> -->
+          <div class="ref-card-body">
+            <h3>Mäntypergola + terassi</h3>
+            <div class="meta"><span>📍 Liperi</span><span>📅 Kesä 2024</span></div>
+            <p>Terassia täydentävä pergola mäntyrakenteella.</p>
+          </div>
+        </div>
+
+        <div class="ref-card" data-cat="piharakennus">
+           <figure>
+      		<img src="images/referenssit_varasto.webp" alt="Erillinen varasto ja halkovaja mökin pihalla" loading="lazy"> 
+    	   </figure>
+          <!-- <div class="ref-card-img" style="background: linear-gradient(135deg, #5a4020, #8B5E3C);">
+            🏠
+            <span class="ref-card-cat"><span class="badge badge-accent">Piharakennus</span></span>
+          </div> -->
+          <div class="ref-card-body">
+            <h3>Puuvaja ja varastorakennus</h3>
+            <div class="meta"><span>📍 Joensuu, Noljakka</span><span>📅 Syksy 2023</span></div>
+            <p>Kaksiosastoinen piharakennus: halkoliiteri ja varastotila. Perustuksina betonipilarit.</p>
+          </div>
+        </div>
+
+        <div class="ref-card" data-cat="aita">
+          <figure>
+      		<img src="images/referenssit_aita.webp" alt="Vaakalauta-aita portilla kerrostalon pihalla" loading="lazy"> 
+    	   </figure>
+          <!-- <div class="ref-card-img" style="background: linear-gradient(135deg, #6b5035, #4a3522);">
+            🚧
+            <span class="ref-card-cat"><span class="badge badge-light" style="color:#2a2218;">Aita</span></span>
+          </div> -->
+          <div class="ref-card-body">
+            <h3>Vaakalauta-aita, taloyhtiö</h3>
+            <div class="meta"><span>📍 Joensuu</span><span>📅 Kevät 2024</span></div>
+            <p>80 m pitkä vaakarimaaita taloyhtiön pihaan. Harmaa pintakäsittely.</p>
+          </div>
+        </div>
+
+        <div class="ref-card" data-cat="terassi">
+          <figure>
+      		<img src="images/referenssit_mokkiterassi.webp" alt="Rantamökillä komposiittiterassi" loading="lazy"> 
+    	   </figure>
+          <!-- <div class="ref-card-img" style="background: linear-gradient(135deg, #7a6040, #5a4020);">
+            🌊
+            <span class="ref-card-cat"><span class="badge badge-accent">Terassi</span></span>
+          </div> -->
+          <div class="ref-card-body">
+            <h3>Rantaterassi, kesämökki</h3>
+            <div class="meta"><span>📍 Pyhäselkä</span><span>📅 Kesä 2023</span></div>
+            <p>Komposiittiterassi rantamökin yhteyteen. Kestää kosteutta ja on huoltovapaa.</p>
+          </div>
+        </div>
+
+        <div class="ref-card" data-cat="piharemontti">
+          <figure>
+      		<img src="images/referenssit_kompterassi.webp" alt="Rivitalon pihalle uusi komposiittiterassi kulkuväylällä" loading="lazy"> 
+    	   </figure>
+          <!-- <div class="ref-card-img" style="background: linear-gradient(135deg, #2a4a2a, #4a7a4a);">
+            🌿
+            <span class="ref-card-cat"><span class="badge badge-primary">Piharemontti</span></span>
+          </div> -->
+          <div class="ref-card-body">
+            <h3>Takapihan uudistus</h3>
+            <div class="meta"><span>📍 Kontiolahti</span><span>📅 Kesä 2023</span></div>
+            <p>Vanhan terassin purku, tilalle uusi komposiittiterassi ja kulkupolku.</p>
+          </div>
+        </div>
+
+        <div class="ref-card" data-cat="piharakennus">
+          <figure>
+      		<img src="images/referenssit_leikkimokki.webp" alt="Painekyllästetystä puusta tehty leikkimökki" loading="lazy"> 
+    	   </figure>
+          <!-- <div class="ref-card-img" style="background: linear-gradient(135deg, #3a2a1a, #6b4a28);">
+            🎠
+            <span class="ref-card-cat"><span class="badge badge-accent">Piharakennus</span></span>
+          </div> -->
+          <div class="ref-card-body">
+            <h3>Lasten leikkimökki</h3>
+            <div class="meta"><span>📍 Rääkkylä</span><span>📅 Kevät 2024</span></div>
+            <p>Leikkimökki terassilla. Painekyllästetty puu.</p>
+          </div>
+        </div>
+
+        <div class="ref-card" data-cat="aita">
+          <figure>
+      		<img src="images/referenssit_pystyaita.webp" alt="Pystylauta-aita omakotitalon ympärillä" loading="lazy"> 
+    	   </figure>
+          <!-- <div class="ref-card-img" style="background: linear-gradient(135deg, #4a3a28, #7a5a38);">
+            🏡
+            <span class="ref-card-cat"><span class="badge badge-light" style="color:#2a2218;">Aita</span></span>
+          </div> -->
+          <div class="ref-card-body">
+            <h3>Perinteinen pystylauta-aita</h3>
+            <div class="meta"><span>📍 Outokumpu</span><span>📅 Kesä 2022</span></div>
+            <p>Klassinen pystylauta-aita omakotitalon ympärille.</p>
+          </div>
+        </div>
+
+        <div class="ref-card" data-cat="terassi"> 
+          <figure>
+      		<img src="images/referenssit_tuplaterassi.webp" alt="Terassi sekä ala- että yläkertaan" loading="lazy"> 
+    	   </figure>
+          <!-- <div class="ref-card-img" style="background: linear-gradient(135deg, #2D4A2D, #5a8a5a);">
+            🌲
+            <span class="ref-card-cat"><span class="badge badge-accent">Terassi</span></span> 
+          </div> -->
+          <div class="ref-card-body">
+            <h3>Tuplaterassi</h3>
+            <div class="meta"><span>📍 Joensuu, Hukanhauta</span><span>📅 Syksy 2025</span></div>
+            <p>Ylä- ja alaterassi. Materiaali lämpöpuu.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ENNEN & JÄLKEEN -->
+      <div class="before-after">
+        <div class="ba-header">
+          <h4>Ennen &amp; jälkeen</h4>
+          <h2>Koko pihan muutos — Kontiolahti 2023</h2>
+          <p>Vanha, lahonnut terassi ja rikkinäinen aita uusittiin kokonaan. Projekti sisälsi purkutyöt, lämpöpuuterassin ja aidan.</p>
+        </div>
+        <div class="ba-images"> 
+          <figure>
+      		<img src="images/referenssit_lahoterassi.webp" alt="Vanha laho terassi ja aita" loading="lazy"> 
+    	   </figure>
+          <!-- <div class="ba-img ba-before">
+            🏚️
+            <span class="ba-img-label" style="background:#2A2218; color:white;">Ennen</span>
+          </div> --> 
+          <figure>
+      		<img src="images/referenssit_uusiterassi.webp" alt="Uudistettu terassi ja aita lämpöpuusta" loading="lazy"> 
+    	   </figure>
+          <!-- <div class="ba-img ba-after">
+            🏡
+            <span class="ba-img-label" style="background:var(--color-accent); color:white;">Jälkeen</span>
+          </div> -->
+        </div>
+        <div class="ba-details">
+          <div class="ba-stat"><strong>3 vk</strong><span>Projektin kesto</span></div>
+          <div class="ba-stat"><strong>9 m²</strong><span>Terassipinta-ala</span></div>
+          <div class="ba-stat"><strong>3 m</strong><span>Aitaa asennettu</span></div>
+          <div class="ba-stat"><strong>★★★★★</strong><span>Asiakasarvio</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- GALLERIA -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header center">
+        <!-- <h4>Kuvagalleria</h4> -->
+        <h2>Lisää kuvia töistämme</h2>
+      </div> 
+      <div class="gallery-grid"> 
+      	<div class="gallery-item" style="background: linear-gradient(135deg, #5a4020, #8B5E3C);">  
+          <figure>
+        		<img src="images/referenssit_takatasku.webp" alt="Ravintolan uusi terassi ja kaide" loading="lazy">                 
+          </figure>
+          <span class="gallery-item-label">Ravintolan terassi, Joensuu</span> 
+    	</div>                                                                                       
+        <div class="gallery-item" style="background: linear-gradient(135deg, #5a4020, #8B5E3C);">    
+          <figure>
+        		<img src="images/referenssit_kirkkopergola.webp" alt="Pergola kirkon pihalla" loading="lazy">  
+          </figure>
+          <span class="gallery-item-label">Kirkko, Rääkkylä</span> 
+    	</div>
+        <div class="gallery-item" style="background: linear-gradient(135deg, #5a4020, #8B5E3C);">    
+          <figure>
+        		<img src="images/referenssit_autokatos.webp" alt="Lämpöpuusta tehty kolmen auton autokatos" loading="lazy">  
+          </figure>
+          <span class="gallery-item-label">Autokatos, Kontiolahti</span> 
+    	</div>
+        <div class="gallery-item" style="background: linear-gradient(135deg, #5a4020, #8B5E3C);">    
+          <figure>
+        		<img src="images/referenssit_rimaaita.webp" alt="Lämpöpuurimoista tehty aitaelementti" loading="lazy">  
+          </figure>
+          <span class="gallery-item-label">Rima-aitaelementti</span> 
+    	</div>
+        <div class="gallery-item" style="background: linear-gradient(135deg, #5a4020, #8B5E3C);">    
+          <figure>
+        		<img src="images/referenssit_meluvalli.webp" alt="Meluvallin tekoa kerrostalon pihalle" loading="lazy">  
+          </figure>
+          <span class="gallery-item-label">Meluvalli, Karhunmäki</span> 
+    	</div> 
+        <div class="gallery-item" style="background: linear-gradient(135deg, #5a4020, #8B5E3C);">    
+          <figure>
+        		<img src="images/referenssit_leikkimokki2.webp" alt="Maalattu lasten leikkimökki" loading="lazy">  
+          </figure>
+          <span class="gallery-item-label">Maalattu leikkimökki, Liperi</span> 
+    	</div> 
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-banner" style="background: linear-gradient(135deg, var(--color-accent) 0%, #a86e28 100%); padding:64px 0; text-align:center; position:relative; overflow:hidden;">
+    <div class="container" style="position:relative; z-index:2;">
+      <h2 style="color:white; margin-bottom:12px;">Haluatko vastaavan toteutuksen?</h2>
+      <p style="color:rgba(255,255,255,0.82); margin-bottom:32px;">Varaa kartoituskäynti — käymme pihallasi arvioimassa ja teemme suunnitelman juuri sinun tarpeidesi mukaan.</p>
+      <!--<a href="pyydä-tarjous.html" class="btn btn-white btn-lg">Pyydä maksuton tarjous</a>-->
+      <a href="ajanvaraus.html" class="btn btn-primary btn-lg">Varaa kartoituskäynti</a>
+    </div>
+  </div>
+</main>
+  
+<!--#include file="footer.shtml"-->
+  
+<script>
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  function toggleDropdown(btn) {
+    btn.closest('li').classList.toggle('open');
+  }
+
+  function filterProjects(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.ref-card').forEach(card => {
+      if (cat === 'kaikki' || card.dataset.cat === cat) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+</script>
+</body>
+</html>
