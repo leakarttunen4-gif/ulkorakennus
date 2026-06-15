@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Karelia Ulkorakennus Oy">
+  <meta name="robots" content="index, follow">
+  <title>Ylijäämämateriaalit – Karelia Ulkorakennus Oy</title>
+  <meta name="description" content="Rakennustuotteiden hävikkimyynti. 
+   Osta edellisesti ylijäämämateriaaleja.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+ <!-- NAVIGAATIO -->
+<nav class="site-nav">
+  <div class="container">
+    <a href="../index.html" class="nav-logo">
+      <span>Karelia Ulkorakennus Oy</span>
+      Joensuu · Pohjois-Karjala
+    </a> 
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Valikko">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Etusivu</a></li>
+      <!--<li><a href="palvelut.html">Palvelut</a></li>--> 
+      <li class="has-dropdown">
+        <a href="../palvelut.html">Palvelut<span class="dropdown-arrow">▼</span></a>
+        <button class="dropdown-toggle-btn" onclick="toggleDropdown(this)" aria-label="Avaa alavalikko">
+          <span class="dropdown-arrow">▼</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="../terassit.html">Terassit</a></li>
+          <li><a href="../pergolat.html">Pergolat</a></li>
+          <li><a href="../piharakennukset.html">Piharakennukset</a></li>
+          <li><a href="../aidat.html">Aidat</a></li>
+          <li><a href="../piharemontti.html">Piharemontti</a></li>
+        </ul>
+      </li>
+	  <li><a href="../referenssit.html">Referenssit</a></li>
+      <li><a href="../tietoa-meista.html">Tietoa meistä</a></li>
+      <li><a href="../palautteet.html">Palautteet</a></li>
+      <li><a href="../yhteystiedot.html">Yhteystiedot</a></li> 
+      <li><a href="../ajanvaraus.html" class="nav-cta">Varaa aika</a></li>
+      <!--<li><a href="pyydä-tarjous.html" class="nav-cta">Pyydä tarjous</a></li> -->
+      <li><a href="materiaalit/materiaalit.html" class="nav-cta">ResQ</a></li> 
+    </ul>
+  </div>
+</nav>
+
+
+<section class="page-hero">
+  <div class="container">
+    <h1>Ylijäämämateriaalit</h1>
+    <p>Osta hävikkituotteita edullisesti. <br>Metritavarat metrihinnalla, muut kilohinnalla. <br>Varaa tuote ja nouda 2 arkipäivän sisällä.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    
+    <div id="productGrid" class="grid-3"></div>
+
+  </div>
+</section>
+
+<!-- POPUP -->
+<div id="varausModal" class="modaali-tausta">
+  <div class="modaali-laatikko">
+    <div class="modaali-ikoni">📦</div>
+    <h3>Varaa tuote</h3>
+
+    <form id="varausForm">
+      <div class="form-group">
+        <label>Nimi</label>
+        <input type="text" id="name" required>
+      </div>
+
+      <div class="form-group">
+        <label>Puhelin tai sähköposti</label>
+        <input type="text" id="contact" required>
+      </div>
+
+      <div class="modaali-napit">
+        <button type="submit" class="btn btn-primary">Varaa</button>
+        <button type="button" class="btn btn-ghost" onclick="closeModal()">Peruuta</button>
+      </div>
+    </form>
+
+    <p id="successMsg" style="display:none; margin-top:15px; color:green;">
+      ✅ Varaus onnistui! Nouda tuotteet osoitteesta Raatekankaantie 13, Joensuu.
+    </p>
+    <button class="btn btn-secondary btn-sm" onclick="closeSuccess()">
+      Sulje
+    </button>
+  </div>
+</div>
+
+<script src="js/tuotteet.js"></script>
+</body>
+</html>
